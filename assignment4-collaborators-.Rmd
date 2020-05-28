@@ -50,6 +50,12 @@ library(kableExtra)
 
 # Data
 
+```{r}
+crime <- read.csv("Data/SYB62_328_201904_Intentional Homicides and Other Crimes.csv")
+tourism <- read.csv("Data/SYB63_176_202003_Tourist-Visitors Arrival and Expenditure.csv")
+```
+
+
 \clearpage
 
 # Section 1a
