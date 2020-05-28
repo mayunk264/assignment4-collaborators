@@ -1,0 +1,100 @@
+---
+title: "Is there a relationship between the level of crime in Australia and tourism?"
+author: Collaborators
+output:
+  pdf_document:
+    citation_package: natbib
+    highlight: tango
+    number_sections: yes
+    toc: yes
+    toc_depth: 2
+    keep_tex: true
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_depth: '2'
+bibliography: references.bib 
+biblio-style: plainnat
+subtitle: "Machine learning consultancy"
+header-includes:
+- \usepackage{titling}
+- \pretitle{\begin{center} 
+  \includegraphics[width=5in,height=6in]{Images/sam-albury-oA7MMRxTVzo-unsplash.jpg}\LARGE\\}
+- \posttitle{\end{center}}
+- \usepackage{fontawesome}
+- \usepackage[most]{tcolorbox}
+- \usepackage{xcolor}
+- \usepackage{sectsty}
+- \sectionfont{\color{blue}}
+- \usepackage{verbatim}
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+---
+
+
+```{r , echo = FALSE, message = FALSE, warning = FALSE}
+
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(kableExtra)
+```
+
+# Intro
+
+\clearpage
+
+# Methodology
+
+\clearpage
+
+# Data
+
+\clearpage
+
+# Section 1a
+
+```{r}
+
+#Varsha --> focus on crime trends around the world
+```
+
+\clearpage
+
+# Section 1b
+
+```{r}
+
+#Yawen --> focus on crime in Australia
+```
+
+\clearpage
+
+# Section 2a
+
+```{r}
+
+#Mayunk --> focus on tourism trends around the world
+```
+
+\clearpage
+
+# Section 2b
+
+```{r}
+
+#Ankush --> focus on tourism in Australia
+```
+
+\clearpage
+
+# Section 3
+
+```{r}
+
+#Yuheng --> Relationship between Crime and Tourism
+```
+
+\clearpage
+
+# References
