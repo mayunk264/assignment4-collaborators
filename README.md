@@ -1,6 +1,6 @@
 # assignment4-collaborators
 
-Research Question: - Is there a relationship between tourists' preferred destination and the level of crime in Australia?
+Research Question: - Is there a relationship between the level of crime in Australia and tourism?
 
 - Crime:
   Varsha --> focus on crime trends around the world
