@@ -32,12 +32,13 @@ header-includes:
 ---
 
 
-```{r , echo = FALSE, message = FALSE, warning = FALSE}
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
 library(kableExtra)
 library(tidyverse)
 library(kableExtra)
+library(janitor)
 ```
 
 # Intro
@@ -50,9 +51,19 @@ library(kableExtra)
 
 # Data
 
-```{r}
-crime <- read.csv("Data/SYB62_328_201904_Intentional Homicides and Other Crimes.csv")
-tourism <- read.csv("Data/SYB63_176_202003_Tourist-Visitors Arrival and Expenditure.csv")
+```{r read-data}
+# clean the data set
+crime <- read.csv("Data/SYB62_328_201904_Intentional Homicides and Other Crimes.csv") %>%
+  clean_names() %>%
+  rename(Country = x_t12, Year = x, Series = x_1, Value = x_2, footnotes = x_3, Source = x_4)
+
+crime_clean <- crime[-1,]
+
+tourism <- read.csv("Data/SYB63_176_202003_Tourist-Visitors Arrival and Expenditure.csv") %>%
+  clean_names() %>%
+  rename(Country = i_t33, Year = x, Series = x_1, Tourism_arr_type = x_2, Tourism_arr_footnote = x_3, Value = x_4, Footnotes = x_5, Source = x_6)
+
+tourism_clean <- tourism[-1,]
 ```
 
 
