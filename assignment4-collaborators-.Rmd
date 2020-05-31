@@ -51,7 +51,7 @@ library(janitor)
 
 # Data
 
-```{r read-data}
+```{r read-data, echo = FALSE}
 # clean the data set
 crime <- read_csv(here::here("Data", "SYB62_328_201904_Intentional Homicides and Other Crimes.csv")) %>%
   clean_names() %>%
@@ -107,9 +107,22 @@ tourism_clean <- tourism[-1,]
 
 # Relationship between Crime and Tourism - edited by Yuheng Cui 
 
-```{r}
-crime_clean %>%
-  filter(Country == "Australia")
+```{r join-tables}
+tour_crime <- crime_clean %>%
+  select(-Country_id, -footnotes, -Source) %>%
+  left_join(tourism_clean, by = c("Country", "Year")) %>%
+  clean_names() %>%
+  rename(series_crime = series_x, value_crime = value_x, series_tour = series_y, value_tour = value_y) %>%
+  select(country, year, series_crime, value_crime, series_tour, tourism_arr_type, value_tour)
+  
+
+tour_crime_clean <- tour_crime[-c(1:6),]
+```
+
+```{r }
+tour_crime_clean %>%
+  group_by(country, year)
+  
 
 ```
 
