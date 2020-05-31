@@ -61,8 +61,8 @@ tourism <- read.csv("Data/SYB63_176_202003_Tourist-Visitors Arrival and Expendit
 # Section 1a
 
 ```{r}
-
 #Varsha --> focus on crime trends around the world
+
 ```
 
 \clearpage
