@@ -53,15 +53,15 @@ library(janitor)
 
 ```{r read-data}
 # clean the data set
-crime <- read.csv("Data/SYB62_328_201904_Intentional Homicides and Other Crimes.csv") %>%
+crime <- read_csv(here::here("Data", "SYB62_328_201904_Intentional Homicides and Other Crimes.csv")) %>%
   clean_names() %>%
-  rename(Country = x_t12, Year = x, Series = x_1, Value = x_2, footnotes = x_3, Source = x_4)
+  rename(Country_id = t12, Country = intentional_homicides_and_other_crimes, Year = x3, Series = x4, Value = x5, footnotes = x6, Source = x7)
 
 crime_clean <- crime[-1,]
 
-tourism <- read.csv("Data/SYB63_176_202003_Tourist-Visitors Arrival and Expenditure.csv") %>%
+tourism <- read_csv(here::here("Data", "SYB63_176_202003_Tourist-Visitors Arrival and Expenditure.csv")) %>%
   clean_names() %>%
-  rename(Country = i_t33, Year = x, Series = x_1, Tourism_arr_type = x_2, Tourism_arr_footnote = x_3, Value = x_4, Footnotes = x_5, Source = x_6)
+  rename(Country_id = t33, Country = tourist_visitor_arrivals_and_tourism_expenditure, Year = x3, Series = x4, Tourism_arr_type = x5, Tourism_arr_footnote = x6, Value = x7, Footnotes = x8, Source = x9)
 
 tourism_clean <- tourism[-1,]
 ```
@@ -105,11 +105,12 @@ tourism_clean <- tourism[-1,]
 
 \clearpage
 
-# Section 3
+# Relationship between Crime and Tourism - edited by Yuheng Cui 
 
 ```{r}
+crime_clean %>%
+  filter(Country == "Australia")
 
-#Yuheng --> Relationship between Crime and Tourism
 ```
 
 \clearpage
