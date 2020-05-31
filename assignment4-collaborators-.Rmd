@@ -32,12 +32,13 @@ header-includes:
 ---
 
 
-```{r , echo = FALSE, message = FALSE, warning = FALSE}
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
 
 library(knitr)
 library(kableExtra)
 library(tidyverse)
 library(kableExtra)
+library(janitor)
 ```
 
 # Intro
@@ -50,9 +51,19 @@ library(kableExtra)
 
 # Data
 
-```{r}
-crime <- read.csv("Data/SYB62_328_201904_Intentional Homicides and Other Crimes.csv")
-tourism <- read.csv("Data/SYB63_176_202003_Tourist-Visitors Arrival and Expenditure.csv")
+```{r read-data}
+# clean the data set
+crime <- read_csv(here::here("Data", "SYB62_328_201904_Intentional Homicides and Other Crimes.csv")) %>%
+  clean_names() %>%
+  rename(Country_id = t12, Country = intentional_homicides_and_other_crimes, Year = x3, Series = x4, Value = x5, footnotes = x6, Source = x7)
+
+crime_clean <- crime[-1,]
+
+tourism <- read_csv(here::here("Data", "SYB63_176_202003_Tourist-Visitors Arrival and Expenditure.csv")) %>%
+  clean_names() %>%
+  rename(Country_id = t33, Country = tourist_visitor_arrivals_and_tourism_expenditure, Year = x3, Series = x4, Tourism_arr_type = x5, Tourism_arr_footnote = x6, Value = x7, Footnotes = x8, Source = x9)
+
+tourism_clean <- tourism[-1,]
 ```
 
 
@@ -94,11 +105,12 @@ tourism <- read.csv("Data/SYB63_176_202003_Tourist-Visitors Arrival and Expendit
 
 \clearpage
 
-# Section 3
+# Relationship between Crime and Tourism - edited by Yuheng Cui 
 
 ```{r}
+crime_clean %>%
+  filter(Country == "Australia")
 
-#Yuheng --> Relationship between Crime and Tourism
 ```
 
 \clearpage
