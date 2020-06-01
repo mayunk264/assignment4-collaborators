@@ -37,7 +37,6 @@ header-includes:
 library(knitr)
 library(kableExtra)
 library(tidyverse)
-library(kableExtra)
 library(janitor)
 ```
 
@@ -107,24 +106,37 @@ tourism_clean <- tourism[-1,]
 
 # Relationship between Crime and Tourism - edited by Yuheng Cui 
 
+```{r}
+crime_clean_wide <- crime_clean %>%
+  select(Country, Year, Series, Value) %>%
+  pivot_wider(names_from = "Series", values_from = "Value")
+
+gg_miss_var(crime_clean_wide)
+```
+
 ```{r join-tables}
-tour_crime <- crime_clean %>%
-  select(-Country_id, -footnotes, -Source) %>%
-  left_join(tourism_clean, by = c("Country", "Year")) %>%
+crime_wide <- crime_clean_wide %>%
   clean_names() %>%
-  rename(series_crime = series_x, value_crime = value_x, series_tour = series_y, value_tour = value_y) %>%
-  select(country, year, series_crime, value_crime, series_tour, tourism_arr_type, value_tour)
-  
+  select(country, year, intentional_homicide_rates_per_100_000)
 
-tour_crime_clean <- tour_crime[-c(1:6),]
+tour_crime <- tourism_clean %>%
+  clean_names() %>%
+  select(country, year, series, value) %>%
+  pivot_wider(names_from = "series", values_from = "value") %>%
+  inner_join(crime_wide, by = c("country", "year")) %>%
+  clean_names() %>%
+  rename(tour_exp_millionsusd = tourism_expenditure_millions_of_us_dollars, visitor_thousands =tourist_visitor_arrivals_thousands)
+
+tour_crime %>%
+  head() %>%
+  kable(booktabs = TRUE, caption = "tourism/crime table") %>%  
+  kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
-```{r }
-tour_crime_clean %>%
-  group_by(country, year)
-  
-
+```{r}
+lm_tour_crime <- lm(tour_exp_millionsusd ~ visitor_thousands + year + intentional_homicide_rates_per_100_000, tour_crime)
 ```
+
 
 \clearpage
 
