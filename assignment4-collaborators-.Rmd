@@ -115,7 +115,7 @@ library(rpart.plot)
 ```
 
 
-```{r}
+```{r vismiss, fig.cap = "missing value in crime data set"}
 crime_clean_wide <- crime_clean %>%
   select(Country, Year, Series, Value) %>%
   pivot_wider(names_from = "Series", values_from = "Value")
@@ -142,8 +142,30 @@ tour_crime %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
+```{r lm_visitor}
+lm_tour_crime_1 <- lm(visitor_thousands~year +intentional_homicide_rates_per_100_000, data = tour_crime)
+lm_tour_crime_2 <-lm(visitor_thousands~year +intentional_homicide_rates_per_100_000 +country, data = tour_crime)
+
+bind_rows(model1 = glance(lm_tour_crime_1)[c(1:5)],
+          model2 = glance(lm_tour_crime_2)[c(1:5)]) %>%
+  kable(booktabs = TRUE, caption = "Comparison between two models")
+```
+
+
+```{r lm_tour_crime_resid, fig.cap = "Predicted value and Residual value"}
+augment(lm_tour_crime_2, data = tour_crime) %>%
+  ggplot(aes(x = .fitted, 
+             y = .resid)) +
+  geom_point(alpha = 0.2) +
+  xlab("Predicted value") +
+  ylab("Residual value")
+```
+
+
+
 ```{r}
-lm_tour_crime <- lm(tour_exp_millionsusd ~ visitor_thousands + year + intentional_homicide_rates_per_100_000, data = tour_crime)
+lm_spending_crime <- lm(tour_exp_millionsusd ~ visitor_thousands + year + intentional_homicide_rates_per_100_000, data = tour_crime)
+
 
 augment(lm_tour_crime, tour_crime)
 ```
