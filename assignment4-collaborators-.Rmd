@@ -38,6 +38,7 @@ library(knitr)
 library(kableExtra)
 library(tidyverse)
 library(janitor)
+library(readr)
 ```
 
 # Intro
@@ -106,6 +107,14 @@ tourism_clean <- tourism[-1,]
 
 # Relationship between Crime and Tourism - edited by Yuheng Cui 
 
+```{r packages used in this section}
+library(naniar)
+library(broom)
+library(rpart)
+library(rpart.plot)
+```
+
+
 ```{r}
 crime_clean_wide <- crime_clean %>%
   select(Country, Year, Series, Value) %>%
@@ -134,7 +143,9 @@ tour_crime %>%
 ```
 
 ```{r}
-lm_tour_crime <- lm(tour_exp_millionsusd ~ visitor_thousands + year + intentional_homicide_rates_per_100_000, tour_crime)
+lm_tour_crime <- lm(tour_exp_millionsusd ~ visitor_thousands + year + intentional_homicide_rates_per_100_000, data = tour_crime)
+
+augment(lm_tour_crime, tour_crime)
 ```
 
 
