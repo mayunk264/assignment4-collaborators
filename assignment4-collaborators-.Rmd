@@ -152,7 +152,7 @@ bind_rows(model1 = glance(lm_tour_crime_1)[c(1:5)],
 ```
 
 
-```{r lm_tour_crime_resid, fig.cap = "Predicted value and Residual value"}
+```{r lm_tour_crime_resid, fig.cap = "Predicted value and Residual value (the model of visitor arrivals)"}
 augment(lm_tour_crime_2, data = tour_crime) %>%
   ggplot(aes(x = .fitted, 
              y = .resid)) +
@@ -163,11 +163,20 @@ augment(lm_tour_crime_2, data = tour_crime) %>%
 
 
 
-```{r}
-lm_spending_crime <- lm(tour_exp_millionsusd ~ visitor_thousands + year + intentional_homicide_rates_per_100_000, data = tour_crime)
+```{r lm-spending-visitor}
+lm_spending_visitor <- lm(tour_exp_millionsusd ~ visitor_thousands + year, data = tour_crime)
+
+glance(lm_spending_visitor)
+```
 
 
-augment(lm_tour_crime, tour_crime)
+```{r lm-spending-visitor, fig.cap = "Predicted value and Residual value (the model of visitor spending)}
+augment(lm_spending_visitor, tour_crime) %>%  
+  ggplot(aes(x = .fitted, 
+             y = .resid)) +
+  geom_point(alpha = 0.2) +
+  xlab("Predicted value") +
+  ylab("Residual value")
 ```
 
 
