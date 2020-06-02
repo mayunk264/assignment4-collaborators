@@ -153,8 +153,10 @@ tour_crime %>%
 lm_tour_crime_1 <- lm(visitor_thousands~year +intentional_homicide_rates_per_100_000, data = tour_crime)
 lm_tour_crime_2 <-lm(visitor_thousands~year +intentional_homicide_rates_per_100_000 +country, data = tour_crime)
 
-bind_rows(model1 = glance(lm_tour_crime_1)[c(1:5)],
-          model2 = glance(lm_tour_crime_2)[c(1:5)]) %>%
+bind_rows(model1 = glance(lm_tour_crime_1)[c(1:2)],
+          model2 = glance(lm_tour_crime_2)[c(1:2)]) %>%
+  rowid_to_column()%>%
+  rename(model = rowid) %>%
   kable(booktabs = TRUE, caption = "Comparison between two models") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
@@ -174,9 +176,13 @@ augment(lm_tour_crime_2, data = tour_crime) %>%
 ```{r lm_spending_visitor}
 lm_spending_visitor1 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 +country + year, data = tour_crime)
 lm_spending_visitor2 <- lm(tour_exp_millionsusd ~ visitor_thousands +country +year, data = tour_crime)
+lm_spending_visitor3 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 + visitor_thousands +country +year, data = tour_crime)
 
-bind_rows(model1 = glance(lm_spending_visitor1)[c(1:5)],
-          model2 = glance(lm_spending_visitor2)[c(1:5)])%>%
+bind_rows(model1 = glance(lm_spending_visitor1)[c(1:2)],
+          model2 = glance(lm_spending_visitor2)[c(1:2)],
+          model3 = glance(lm_spending_visitor3)[c(1:2)]) %>%
+  rowid_to_column()%>%
+  rename(model = rowid)%>%
   kable(booktabs = TRUE, caption = "The fitness of visitor spending model") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
