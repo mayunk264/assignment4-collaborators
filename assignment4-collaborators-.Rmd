@@ -32,8 +32,8 @@ header-includes:
 ---
 
 
-```{r setup}
-knitr::opts_chunk$set(echo = FALSE,message = FALSE, warning = FALSE, fig.align = "center")
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align = "center")
 library(knitr)
 library(kableExtra)
 library(tidyverse)
@@ -52,7 +52,7 @@ library(lubridate)
 
 # Data
 
-```{r read-data, echo = FALSE}
+```{r read-data}
 # clean the data set
 crime <- read_csv(here::here("Data", "SYB62_328_201904_Intentional Homicides and Other Crimes.csv")) %>%
   clean_names() %>%
@@ -115,6 +115,7 @@ library(rpart)
 library(rpart.plot)
 ```
 
+In this section we try to find the relationship amongst the safety, number of visitor arrivals, and visitor spending. Figure \@ref(fig:vismiss) specifies the variables having missing values. To make our models available, we only kept the variable having least missing values. Table \@ref(tab:jointables) is the combined table of crime and tourism. There are still some missing values in the table but they are few.
 
 ```{r vismiss, fig.cap = "missing value in crime data set"}
 crime_clean_wide <- crime_clean %>%
@@ -126,7 +127,7 @@ gg_miss_var(crime_clean_wide)
 
 \clearpage
 
-```{r join-tables}
+```{r jointables}
 crime_wide <- crime_clean_wide %>%
   clean_names() %>%
   select(country, year, intentional_homicide_rates_per_100_000)
@@ -148,6 +149,8 @@ tour_crime %>%
   kable(booktabs = TRUE, caption = "tourism/crime table") %>%  
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
+
+We created two linear models of visitor arrivals: one model used country as one of the explanatory variables while the other did not. In Table \ref(tab:lm_visitor), we can see much higher $R^2$ of the model with country, which had $R^2$ of 97.5%. That is, 97.5% of the variation of the explanatory variables can be explained by the model. In sum, country had the absolute influence. That is, holding crime rate and year constant, some countries were more attractive to tourists. This is true, because some countries have more landmarks and viewpoints than other countries.
 
 ```{r lm_visitor}
 lm_tour_crime_1 <- lm(visitor_thousands~year +intentional_homicide_rates_per_100_000, data = tour_crime)
