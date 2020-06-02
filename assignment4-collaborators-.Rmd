@@ -41,6 +41,9 @@ library(janitor)
 library(readr)
 library(lubridate)
 library(ggplot2)
+library(base)
+library(dplyr)
+library(graphics)
 ```
 
 # Intro
@@ -112,11 +115,16 @@ australia <- tourism_clean %>%
 
 ```{r}
 tourist_arrivals <- australia %>% 
-  dplyr::select(Country, Year, Series, Value) %>% 
   dplyr::filter(Series == "Tourist/visitor arrivals (thousands)") %>% 
-  kableExtra::kable(booktabs = TRUE, caption = "Number of Visitors in Australia") %>%  
-  kable_styling(bootstrap_options = c("striped", "hover"))
-tourist_arrivals
+   dplyr::select(Country, Year, Value) %>%
+   rename(Visitors = Value) 
+```
+
+```{r}
+tourist_expenditure <- australia %>% 
+  dplyr::filter(Series == "Tourism expenditure (millions of US dollars)") %>% 
+  dplyr::select(Country, Year, Value) %>%
+  rename(Expenditure = Value) 
 ```
 
 
