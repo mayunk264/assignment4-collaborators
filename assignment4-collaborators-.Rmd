@@ -39,6 +39,7 @@ library(kableExtra)
 library(tidyverse)
 library(janitor)
 library(readr)
+library(lubridate)
 ```
 
 # Intro
@@ -136,7 +137,11 @@ tour_crime <- tourism_clean %>%
   pivot_wider(names_from = "series", values_from = "value") %>%
   inner_join(crime_wide, by = c("country", "year")) %>%
   clean_names() %>%
-  rename(tour_exp_millionsusd = tourism_expenditure_millions_of_us_dollars, visitor_thousands =tourist_visitor_arrivals_thousands)
+  rename(tour_exp_millionsusd = tourism_expenditure_millions_of_us_dollars, visitor_thousands =tourist_visitor_arrivals_thousands) %>%
+  mutate(tour_exp_millionsusd = as.numeric(tour_exp_millionsusd),
+         visitor_thousands = as.numeric(visitor_thousands),
+         intentional_homicide_rates_per_100_000 = as.numeric(intentional_homicide_rates_per_100_000),
+         year = year(as.Date(year, "%Y")))
 
 tour_crime %>%
   head() %>%
@@ -150,7 +155,8 @@ lm_tour_crime_2 <-lm(visitor_thousands~year +intentional_homicide_rates_per_100_
 
 bind_rows(model1 = glance(lm_tour_crime_1)[c(1:5)],
           model2 = glance(lm_tour_crime_2)[c(1:5)]) %>%
-  kable(booktabs = TRUE, caption = "Comparison between two models")
+  kable(booktabs = TRUE, caption = "Comparison between two models") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
 
@@ -166,9 +172,13 @@ augment(lm_tour_crime_2, data = tour_crime) %>%
 
 
 ```{r lm_spending_visitor}
-lm_spending_visitor <- lm(tour_exp_millionsusd ~ visitor_thousands + year, data = tour_crime)
+lm_spending_visitor1 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 +country, data = tour_crime)
+lm_spending_visitor2 <- lm(tour_exp_millionsusd ~ visitor_thousands +country, data = tour_crime)
 
-glance(lm_spending_visitor)
+bind_rows(model1 = glance(lm_spending_visitor1)[c(1:5)],
+          model2 = glance(lm_spending_visitor2)[c(1:5)])%>%
+  kable(booktabs = TRUE, caption = "The fitness of visitor spending model") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
 
