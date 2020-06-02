@@ -2,7 +2,7 @@
 title: "Is there a relationship between the level of crime in Australia and tourism?"
 author: Collaborators
 output:
-  pdf_document:
+  bookdown::pdf_document2:
     citation_package: natbib
     highlight: tango
     number_sections: yes
@@ -152,7 +152,7 @@ tour_crime %>%
 
 We created two linear models of visitor arrivals: one model used country as one of the explanatory variables while the other did not. In Table \ref(tab:lm_visitor), we can see much higher $R^2$ of the model with country, which had $R^2$ of 97.5%. That is, 97.5% of the variation of the explanatory variables can be explained by the model. In sum, country had the absolute influence. That is, holding crime rate and year constant, some countries were more attractive to tourists. This is true, because some countries have more landmarks and viewpoints than other countries.
 
-```{r lm_visitor}
+```{r lmvisitor}
 lm_tour_crime_1 <- lm(visitor_thousands~year +intentional_homicide_rates_per_100_000, data = tour_crime)
 lm_tour_crime_2 <-lm(visitor_thousands~year +intentional_homicide_rates_per_100_000 +country, data = tour_crime)
 
@@ -165,7 +165,7 @@ bind_rows(model1 = glance(lm_tour_crime_1)[c(1:2)],
 ```
 
 
-```{r lm_tour_crime_resid, fig.cap = "Predicted value and Residual value (the model of visitor arrivals)"}
+```{r lmtourcrimeresid, fig.cap = "Predicted value and Residual value (the model of visitor arrivals)"}
 augment(lm_tour_crime_2, data = tour_crime) %>%
   ggplot(aes(x = .fitted, 
              y = .resid)) +
@@ -176,7 +176,7 @@ augment(lm_tour_crime_2, data = tour_crime) %>%
 
 
 
-```{r lm_spending_visitor}
+```{r lmspendingvisitor}
 lm_spending_visitor1 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 +country + year, data = tour_crime)
 lm_spending_visitor2 <- lm(tour_exp_millionsusd ~ visitor_thousands +country +year, data = tour_crime)
 lm_spending_visitor3 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 + visitor_thousands +country +year, data = tour_crime)
@@ -191,7 +191,7 @@ bind_rows(model1 = glance(lm_spending_visitor1)[c(1:2)],
 ```
 
 
-```{r lm_spending_plot, fig.cap = "Predicted value and Residual value (the model of visitor spending)"}
+```{r lmspendingplot, fig.cap = "Predicted value and Residual value (the model of visitor spending)"}
 augment(lm_spending_visitor2, tour_crime) %>%  
   ggplot(aes(x = .fitted, 
              y = .resid)) +
