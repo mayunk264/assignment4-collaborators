@@ -172,8 +172,8 @@ augment(lm_tour_crime_2, data = tour_crime) %>%
 
 
 ```{r lm_spending_visitor}
-lm_spending_visitor1 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 +country, data = tour_crime)
-lm_spending_visitor2 <- lm(tour_exp_millionsusd ~ visitor_thousands +country, data = tour_crime)
+lm_spending_visitor1 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 +country + year, data = tour_crime)
+lm_spending_visitor2 <- lm(tour_exp_millionsusd ~ visitor_thousands +country +year, data = tour_crime)
 
 bind_rows(model1 = glance(lm_spending_visitor1)[c(1:5)],
           model2 = glance(lm_spending_visitor2)[c(1:5)])%>%
@@ -183,7 +183,7 @@ bind_rows(model1 = glance(lm_spending_visitor1)[c(1:5)],
 
 
 ```{r lm_spending_plot, fig.cap = "Predicted value and Residual value (the model of visitor spending)"}
-augment(lm_spending_visitor, tour_crime) %>%  
+augment(lm_spending_visitor2, tour_crime) %>%  
   ggplot(aes(x = .fitted, 
              y = .resid)) +
   geom_point(alpha = 0.2) +
