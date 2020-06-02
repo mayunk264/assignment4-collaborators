@@ -32,13 +32,14 @@ header-includes:
 ---
 
 
-```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align = "center")
 library(knitr)
 library(kableExtra)
 library(tidyverse)
-library(kableExtra)
 library(janitor)
+library(readr)
+library(lubridate)
 ```
 
 # Intro
@@ -107,11 +108,98 @@ tourism_clean <- tourism[-1,]
 
 # Relationship between Crime and Tourism - edited by Yuheng Cui 
 
-```{r}
-crime_clean %>%
-  filter(Country == "Australia")
-
+```{r packages used in this section}
+library(naniar)
+library(broom)
+library(rpart)
+library(rpart.plot)
 ```
+
+In this section we try to find the relationship amongst the safety, number of visitor arrivals, and visitor spending. Figure \@ref(fig:vismiss) specifies the variables having missing values. To make our models available, we only kept the variable having least missing values. Table \@ref(tab:jointables) is the combined table of crime and tourism. There are still some missing values in the table but they are few.
+
+```{r vismiss, fig.cap = "missing value in crime data set"}
+crime_clean_wide <- crime_clean %>%
+  select(Country, Year, Series, Value) %>%
+  pivot_wider(names_from = "Series", values_from = "Value")
+
+gg_miss_var(crime_clean_wide)
+```
+
+\clearpage
+
+```{r jointables}
+crime_wide <- crime_clean_wide %>%
+  clean_names() %>%
+  select(country, year, intentional_homicide_rates_per_100_000)
+
+tour_crime <- tourism_clean %>%
+  clean_names() %>%
+  select(country, year, series, value) %>%
+  pivot_wider(names_from = "series", values_from = "value") %>%
+  inner_join(crime_wide, by = c("country", "year")) %>%
+  clean_names() %>%
+  rename(tour_exp_millionsusd = tourism_expenditure_millions_of_us_dollars, visitor_thousands =tourist_visitor_arrivals_thousands) %>%
+  mutate(tour_exp_millionsusd = as.numeric(tour_exp_millionsusd),
+         visitor_thousands = as.numeric(visitor_thousands),
+         intentional_homicide_rates_per_100_000 = as.numeric(intentional_homicide_rates_per_100_000),
+         year = year(as.Date(year, "%Y")))
+
+tour_crime %>%
+  head() %>%
+  kable(booktabs = TRUE, caption = "tourism/crime table") %>%  
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+We created two linear models of visitor arrivals: one model used country as one of the explanatory variables while the other did not. In Table \ref(tab:lm_visitor), we can see much higher $R^2$ of the model with country, which had $R^2$ of 97.5%. That is, 97.5% of the variation of the explanatory variables can be explained by the model. In sum, country had the absolute influence. That is, holding crime rate and year constant, some countries were more attractive to tourists. This is true, because some countries have more landmarks and viewpoints than other countries.
+
+```{r lm_visitor}
+lm_tour_crime_1 <- lm(visitor_thousands~year +intentional_homicide_rates_per_100_000, data = tour_crime)
+lm_tour_crime_2 <-lm(visitor_thousands~year +intentional_homicide_rates_per_100_000 +country, data = tour_crime)
+
+bind_rows(model1 = glance(lm_tour_crime_1)[c(1:2)],
+          model2 = glance(lm_tour_crime_2)[c(1:2)]) %>%
+  rowid_to_column()%>%
+  rename(model = rowid) %>%
+  kable(booktabs = TRUE, caption = "Comparison between two models") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+```{r lm_tour_crime_resid, fig.cap = "Predicted value and Residual value (the model of visitor arrivals)"}
+augment(lm_tour_crime_2, data = tour_crime) %>%
+  ggplot(aes(x = .fitted, 
+             y = .resid)) +
+  geom_point(alpha = 0.2) +
+  xlab("Predicted value") +
+  ylab("Residual value")
+```
+
+
+
+```{r lm_spending_visitor}
+lm_spending_visitor1 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 +country + year, data = tour_crime)
+lm_spending_visitor2 <- lm(tour_exp_millionsusd ~ visitor_thousands +country +year, data = tour_crime)
+lm_spending_visitor3 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 + visitor_thousands +country +year, data = tour_crime)
+
+bind_rows(model1 = glance(lm_spending_visitor1)[c(1:2)],
+          model2 = glance(lm_spending_visitor2)[c(1:2)],
+          model3 = glance(lm_spending_visitor3)[c(1:2)]) %>%
+  rowid_to_column()%>%
+  rename(model = rowid)%>%
+  kable(booktabs = TRUE, caption = "The fitness of visitor spending model") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+```{r lm_spending_plot, fig.cap = "Predicted value and Residual value (the model of visitor spending)"}
+augment(lm_spending_visitor2, tour_crime) %>%  
+  ggplot(aes(x = .fitted, 
+             y = .resid)) +
+  geom_point(alpha = 0.2) +
+  xlab("Predicted value") +
+  ylab("Residual value")
+```
+
 
 \clearpage
 
