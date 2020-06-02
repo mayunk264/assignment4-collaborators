@@ -3,3 +3,6 @@ MAlonzo/**
 .Rproj.user
 .Rproj
 .Rhistory
+*.pdf
+*.log
+*.tex

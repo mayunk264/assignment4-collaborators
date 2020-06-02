@@ -32,8 +32,8 @@ header-includes:
 ---
 
 
-```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
-
+```{r setup}
+knitr::opts_chunk$set(echo = FALSE,message = FALSE, warning = FALSE, fig.align = "center")
 library(knitr)
 library(kableExtra)
 library(tidyverse)
@@ -123,6 +123,8 @@ crime_clean_wide <- crime_clean %>%
 gg_miss_var(crime_clean_wide)
 ```
 
+\clearpage
+
 ```{r join-tables}
 crime_wide <- crime_clean_wide %>%
   clean_names() %>%
@@ -163,14 +165,14 @@ augment(lm_tour_crime_2, data = tour_crime) %>%
 
 
 
-```{r lm-spending-visitor}
+```{r lm_spending_visitor}
 lm_spending_visitor <- lm(tour_exp_millionsusd ~ visitor_thousands + year, data = tour_crime)
 
 glance(lm_spending_visitor)
 ```
 
 
-```{r lm-spending-visitor, fig.cap = "Predicted value and Residual value (the model of visitor spending)}
+```{r lm_spending_plot, fig.cap = "Predicted value and Residual value (the model of visitor spending)"}
 augment(lm_spending_visitor, tour_crime) %>%  
   ggplot(aes(x = .fitted, 
              y = .resid)) +
