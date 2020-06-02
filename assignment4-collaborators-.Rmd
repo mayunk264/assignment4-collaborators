@@ -108,10 +108,16 @@ tourism_clean <- tourism[-1,]
 ```{r}
 australia <- tourism_clean %>% 
   dplyr::filter(Country == "Australia")
-
-australia
 ```
 
+```{r}
+tourist_arrivals <- australia %>% 
+  dplyr::select(Country, Year, Series, Value) %>% 
+  dplyr::filter(Series == "Tourist/visitor arrivals (thousands)") %>% 
+  kableExtra::kable(booktabs = TRUE, caption = "Number of Visitors in Australia") %>%  
+  kable_styling(bootstrap_options = c("striped", "hover"))
+tourist_arrivals
+```
 
 
 
