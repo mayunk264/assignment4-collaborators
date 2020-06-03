@@ -129,12 +129,16 @@ tourist_expenditure <- australia %>%
 
 ```{r}
 tourist_arr_exp <- full_join(tourist_arrivals,tourist_expenditure,
-                             by = c("Country","Year")) %>% 
+                             by = c("Country","Year")) 
+
+tourist_arr_exp %>% 
   kableExtra::kable(booktabs = TRUE, caption = "Number of Visitors and Expenditure ('000) in Australia") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 
-tourist_arr_exp
 ```
+
+
+
 
 
 
