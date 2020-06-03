@@ -86,6 +86,20 @@ tourism_clean <- tourism[-1,]
 #Yawen --> focus on crime in Australia
 ```
 
+```{r}
+crime_AU <- crime_clean %>%
+  select(-Country_id, -footnotes, -Source) %>%
+  filter(Country == "Australia") %>%
+  select(-Country) %>%
+  group_by(Year, Series)
+```
+
+```{r}
+ggplot(crime_AU, aes(x = Year, y = Value, group = Series, color = Series)) +
+  geom_line()
+```
+
+
 \clearpage
 
 # Section 2a
