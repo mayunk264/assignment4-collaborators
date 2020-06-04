@@ -164,7 +164,7 @@ tour_crime %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
-We created two linear models of visitor arrivals: one model used country as one of the explanatory variables while the other did not. In Table \ref(tab:lm_visitor), we can see much higher $R^2$ of the model with country, which had $R^2$ of 97.5%. That is, 97.5% of the variation of the explanatory variables can be explained by the model. In sum, country had the absolute influence. That is, holding crime rate and year constant, some countries were more attractive to tourists. This is true, because some countries have more landmarks and viewpoints than other countries.
+We created two linear models of visitor arrivals: one model used country as one of the explanatory variables while the other did not. In Table \@ref(tab:lmvisitor), we can see much higher $R^2$ of the model with country, which had $R^2$ of 97.5%. That is, 97.5% of the variation of the explanatory variables can be explained by the model. In sum, country had the absolute influence. That is, holding crime rate and year constant, some countries were more attractive to tourists. This is true, because some countries have more landmarks and viewpoints than other countries.
 
 ```{r lmvisitor}
 lm_tour_crime_1 <- lm(visitor_thousands~year +intentional_homicide_rates_per_100_000, data = tour_crime)
@@ -177,7 +177,9 @@ bind_rows(model1 = glance(lm_tour_crime_1)[c(1:2)],
   kable(booktabs = TRUE, caption = "Comparison between two models") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
+\clearpage
 
+Figure \@ref(fig:lmtourcrimeresid) depicts the predicted values and residual values. The model performed well in the range from 0 to 10000; and most observations were in this range. Beyond 10000, fewer observations spread, the outliers were few. 
 
 ```{r lmtourcrimeresid, fig.cap = "Predicted value and Residual value (the model of visitor arrivals)"}
 augment(lm_tour_crime_2, data = tour_crime) %>%
@@ -188,7 +190,9 @@ augment(lm_tour_crime_2, data = tour_crime) %>%
   ylab("Residual value")
 ```
 
+\clearpage
 
+Next, we built a linear model of visitor spending. Three models all used country and year as explanatory variables. However, in model 1, we used intentional homicide rates as additional explanatory variables; in model 2, we used visitor arrivals as additional explanatory variables; in model 3, we used both intentional homicide rates and visitor arrivals. Table \@ref(tab:lmspendingvisitor) shows three models were all good but model 3 was the best. There were 96.54% of variations in explanatory variables could be explained by model 2. In sum, the number of visitor arrivals had bigger influence than crime rate on the fitness of the model. That is, holding crime rate and year constant, some countries were more attractive to tourists.
 
 ```{r lmspendingvisitor}
 lm_spending_visitor1 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 +country + year, data = tour_crime)
@@ -203,7 +207,7 @@ bind_rows(model1 = glance(lm_spending_visitor1)[c(1:2)],
   kable(booktabs = TRUE, caption = "The fitness of visitor spending model") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
-
+\clearpage
 
 ```{r lmspendingplot, fig.cap = "Predicted value and Residual value (the model of visitor spending)"}
 augment(lm_spending_visitor2, tour_crime) %>%  
@@ -213,6 +217,9 @@ augment(lm_spending_visitor2, tour_crime) %>%
   xlab("Predicted value") +
   ylab("Residual value")
 ```
+Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range below 75000. There were few outliers above 75000.
+
+In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist.
 
 
 \clearpage
