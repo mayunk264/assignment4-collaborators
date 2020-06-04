@@ -42,8 +42,9 @@ library(readr)
 library(lubridate)
 library(ggplot2)
 library(base)
-library(dplyr)
 library(graphics)
+library(dplyr)
+
 ```
 
 # Intro
@@ -137,8 +138,27 @@ tourist_arr_exp %>%
 
 ```
 
+```{r}
+tour <- tourist_arr_exp %>% 
+  group_by(Year,Visitors, Expenditure) %>% 
+  mutate(Visitors_Freq = cumsum(Visitors), Expenditure_Freq = cumsum(Expenditure)) %>% 
+  mutate(Visitors_per = (Visitors_Freq/41345)*100) %>% 
+  mutate(Expenditure_per = (Expenditure_Freq/191514)*100)
 
+```
 
+```{r}
+Visit <- pie(tour$Visitors_per, labels = tour$Year,
+             col = rainbow(length(tour$Year)),
+             main = "Percentage of number of Visitors")
+```
+
+```{r}
+Expen <- pie(tour$Expenditure_per, labels = tour$Year,
+             col = topo.colors(length(tour$Year)),
+             main = "Percentage of Expenditure in different Years")
+
+```
 
 
 
