@@ -115,7 +115,21 @@ crime_type %>%
 ```
 
 
+# Australian Offense by Gender
+```{r crime-by-gender}
+crime_gender <- crime_sex %>%
+  rename(Offense = `Principal offence`, "2009" = `2008–09`, "2010" = `2009–10`, "2011" = `2010–11`, "2012" = `2011–12`, "2013" = `2012–13`, "2014" = `2013–14`, "2015" = `2014–15`, "2016" = `2015–16`, "2017" = `2016–17`, "2018" = `2017–18`, "2019" = `2018–19`) %>%
+  filter(!Offense == "Total") %>%
+  pivot_longer(c("2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"), names_to = "Year", values_to = "Rate")
+```
 
+```{r offenses-by-gender, fig.height=10, fig.width=10, fig.cap="Offenses in Each States by Genders"}
+crime_gender %>%
+  ggplot(aes(x = Year, y = Rate, group = Gender, color = Gender)) +
+  geom_line() +
+  theme(axis.text.x = element_text(size = 10, angle = 60, vjust = .5)) +
+  facet_wrap(~ Offense, ncol = 3)
+```
 
 
 \clearpage
