@@ -114,6 +114,19 @@ australia <- tourism_clean %>%
   dplyr::filter(Country == "Australia")
 ```
 
+
+```{r}
+australia %>% 
+  ggplot(aes(x=Year, y=Value, fill=Series)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+  scale_fill_manual(values=c("yellow", "red")) +
+  xlab("Year") + ylab("") +
+  ggtitle("Tourism Expenditure vs Number of Visitors ('000)") +
+  theme_test()
+
+```
+
+
 ```{r}
 tourist_arrivals <- australia %>% 
   dplyr::filter(Series == "Tourist/visitor arrivals (thousands)") %>% 
@@ -133,7 +146,7 @@ tourist_arr_exp <- full_join(tourist_arrivals,tourist_expenditure,
                              by = c("Country","Year")) 
 
 tourist_arr_exp %>% 
-  kableExtra::kable(booktabs = TRUE, caption = "Number of Visitors and Expenditure ('000) in Australia") %>%
+  kableExtra::kable(booktabs = TRUE, caption = "Expenditure and Number of Visitors ('000) in Australia") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 
 ```
