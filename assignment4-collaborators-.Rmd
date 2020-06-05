@@ -79,57 +79,66 @@ tourism_clean <- tourism[-1,]
 
 \clearpage
 
-# Crime Offense in Australia - edited by Yawen Zhang
+# Crime Offence in Australia - edited by Yawen Zhang
 
-```{r packages used in this section}
-library(readr)
-library(here)
-library(dplyr)
-library(tidyverse)
-library(gridExtra)
-library(tibble)
+```{r packages in this section}
 library(readxl)
 library(ggthemes)
+library(here)
 ```
 
-```{r read-data, include = FALSE}
+```{r readdata, include = FALSE}
 crime_states <- read_csv(here("Data/Book1 offenders, states and territories .csv"))
 crime_sex <- read_excel(here("Data/1. offenders, australia.xlsx"))
 ```
 
-# Offense in Australia Each States
-```{r crime-type}
+## Offence in Australia Each States
+```{r crimetype}
 crime_type <- crime_states %>%
-  rename(Offense = `Principal offence`) %>%
-  filter(Offense %in% c("02 Acts intended to cause injury","08 Theft", "10 Illicit drug offences", "13 Public order offences"))
+  rename(Offence = `Principal offence`) %>%
+  filter(Offence %in% c("02 Acts intended to cause injury","08 Theft", "10 Illicit drug offences", "13 Public order offences"))
+
+crime_type %>%
+  head() %>%
+  kable(booktabs = TRUE, caption = "Four Offfence-types in Each States") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
-```{r states-offense, fig.height=10, fig.width=12, fig.cap="Frequently Offense in Australia of Each State"}
+In this section, we attempt to explore the crime results in each state. Regarding the Australia Bureau of Statistics (ABS), there are about 15 types of offence. From the year 2016, National Statistics suggest that the most frequently detected offence-types were drug offences, acts intended to cause injury, theft and public order offences in table \@ref(tab:crimetype). As a result, we will study the performance of each state of these four popular offences, as well as the trend for each year. 
+
+```{r statesoffence, fig.height=10, fig.width=12, fig.cap="Frequently Offence in Australia of Each State"}
 crime_type %>%
   pivot_longer(c("NSW", "Vic.", "Qld.", "SA", "WA", "Tas.", "ACT", "NT"), names_to = "States", values_to = "Rate") %>%
-  ggplot(aes(x = Year, y = Rate, group = Offense, color = Offense)) +
+  ggplot(aes(x = Year, y = Rate, group = Offence, color = Offence)) +
   geom_line() +
   scale_colour_manual(values=c(`02 Acts intended to cause injury`="#FF6600", `08 Theft`="#663399", `10 Illicit drug offences`="#339999", `13 Public order offences`="#CC0033")) +
   theme(axis.title = element_text(size=17,face="bold"), axis.text = element_text(size=10)) +
   facet_wrap(~ States, ncol = 3)
 ```
 
+From figure \@ref(fig:statesoffence), VIC, ACT and WA are three safer states in Australia, all these four offence-types are below 500 offenders per 100,000 persons from 2016 to 2019. Illicit drug offences are relatively higher in SA compare with other states over four years. The offender rate of theft in SA and NSW have a significant decrease from 500 to 250 offenders per 100,000 persons over the same period. Northern Territory has the highest crime rate over the eight states, especially for public order offences. The maximum amount of public order offences was 2500 offenders per 100,000 persons and decreased to 1750 offenders per 100,000 persons in 2018. Despite this decrease, public order offences remained the most common principal offence. 
 
-# Australian Offense by Gender
+## Australian Offence by Gender
 ```{r crime-by-gender}
 crime_gender <- crime_sex %>%
-  rename(Offense = `Principal offence`, "2009" = `2008–09`, "2010" = `2009–10`, "2011" = `2010–11`, "2012" = `2011–12`, "2013" = `2012–13`, "2014" = `2013–14`, "2015" = `2014–15`, "2016" = `2015–16`, "2017" = `2016–17`, "2018" = `2017–18`, "2019" = `2018–19`) %>%
-  filter(!Offense == "Total") %>%
+  rename(Offence = `Principal offence`, "2009" = `2008–09`, "2010" = `2009–10`, "2011" = `2010–11`, "2012" = `2011–12`, "2013" = `2012–13`, "2014" = `2013–14`, "2015" = `2014–15`, "2016" = `2015–16`, "2017" = `2016–17`, "2018" = `2017–18`, "2019" = `2018–19`) %>%
+  filter(!Offence == "Total") %>%
   pivot_longer(c("2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"), names_to = "Year", values_to = "Rate")
 ```
 
-```{r offenses-by-gender, fig.height=10, fig.width=10, fig.cap="Offenses in Each States by Genders"}
+```{r offender-by-gender, fig.height=10, fig.width=10, fig.cap="Offenders in Each States by Genders"}
 crime_gender %>%
   ggplot(aes(x = Year, y = Rate, group = Gender, color = Gender)) +
   geom_line() +
   theme(axis.text.x = element_text(size = 10, angle = 60, vjust = .5)) +
-  facet_wrap(~ Offense, ncol = 3)
+  facet_wrap(~ Offence, ncol = 3)
 ```
+
+
+To explore the crime rate of Australian men and women, ABS provided a dataset which includes 15 types of offences from 2009 to 2019. Figure \@ref(fig:offender-by-gender) shows that the male offender rate was two to four times higher than the female offender rate, but they have similar trends over the year. Acts intended to cause injury was the most common principal offence for male offenders with 600 male offenders per 100,000 males. Illicit drug offences were the most common principal offence for female offenders with 200 female offenders per 100,000 females. It is necessary mentioning that, both male and female in theft offences shown a downward trend from 2013 until now. In contrast, illicit drug offences provide an increasing trend of male and female from the year 2015. 
+
+
+As can be seen from the above two figures: figure \@ref(fig:statesoffence) and figure \@ref(fig:offender-by-gender), the crime rates of different states in Australia are different, and at the same time, the crime rate of male is extremely higher than male. 
 
 
 \clearpage
