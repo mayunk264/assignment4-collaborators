@@ -6,3 +6,7 @@ MAlonzo/**
 *.pdf
 *.log
 *.tex
+<<<<<<< Updated upstream
+=======
+.DS_Store
+>>>>>>> Stashed changes
