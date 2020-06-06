@@ -218,12 +218,19 @@ tourism_clean_world <- tourism_clean %>%
 
 ```{r converting-column-types}
 #changing Year, Expenditure and Arrivals cloumn types to numbers from characters.
-tourism_clean_world %>%
+tourism_clean_world_a <- tourism_clean_world %>%
   mutate(`Tourism expenditure (millions of US dollars)`=as.numeric(`Tourism expenditure (millions of US dollars)`),
          `Tourist/visitor arrivals (thousands)`=as.numeric(`Tourist/visitor arrivals (thousands)`),
          Year =as.numeric(Year)) %>%
   rename(Expenditure=`Tourism expenditure (millions of US dollars)`,
          Arrivals=`Tourist/visitor arrivals (thousands)`)
+```
+
+```{r data-prep-for-plots}
+tourism_clean_world_b <- tourism_clean_world_a %>%
+  group_by(Year) %>%
+  summarise(Global_Yearly_Arrivals=sum(Arrivals),
+            Global_Yearly_Expenditure=sum(Expenditure))
 ```
 
 
