@@ -50,9 +50,16 @@ library(kableExtra)
 
 # Data
 
-```{r}
-crime <- read.csv("Data/SYB62_328_201904_Intentional Homicides and Other Crimes.csv")
-tourism <- read.csv("Data/SYB63_176_202003_Tourist-Visitors Arrival and Expenditure.csv")
+```{r read-data}
+# clean the data set
+crime <- read_csv(here::here("Data", "SYB62_328_201904_Intentional Homicides and Other Crimes.csv")) %>%
+  clean_names() %>%
+  rename(Country_id = t12, Country = intentional_homicides_and_other_crimes, Year = x3, Series = x4, Value = x5, footnotes = x6, Source = x7)
+crime_clean <- crime[-1,]
+tourism <- read_csv(here::here("Data", "SYB63_176_202003_Tourist-Visitors Arrival and Expenditure.csv")) %>%
+  clean_names() %>%
+  rename(Country_id = t33, Country = tourist_visitor_arrivals_and_tourism_expenditure, Year = x3, Series = x4, Tourism_arr_type = x5, Tourism_arr_footnote = x6, Value = x7, Footnotes = x8, Source = x9)
+tourism_clean <- tourism[-1,]
 ```
 
 
@@ -62,8 +69,49 @@ tourism <- read.csv("Data/SYB63_176_202003_Tourist-Visitors Arrival and Expendit
 
 ```{r}
 #Varsha --> focus on crime trends around the world
-
+crime_world <- crime_clean[,-6] 
+names(crime_world)[1] <- "Country_Code"
+names(crime_world)[2] <- "region"
+names(crime_world)[4] <- "Crimes"
+names(crime_world)[6] <- "Source"
+crime_world <- crime_world %>%  arrange(region, Year)
 ```
+
+We are looking at the crime rate throughout the world and the mean of each of the `r distinct(crime_world$Crimes)` crimes in each of the `r distinct(crime_world$region)`  different regions, this dataset is from the UN website. This section covers the overall crime rate in the world data and what kind of crimes are at large in different parts of the world. 
+
+```{r crimerates}
+crime_rate <- crime_world %>% group_by(Year,Crimes,region) %>% 
+   count(Crimes)
+ggplot(crime_rate,
+       aes(x = Year,
+           y = n,
+           color = Crimes)) + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  geom_col()
+```
+
+
+```{r worldmap}
+require(maps)
+world_map <- map_data("world")
+crimemap <- merge(world_map,crime_world, by = "region") 
+  #pivot_wider(names_from = "Crimes", values_from = "Value")
+```
+
+
+```{r worldmapdata}
+library(viridis)
+crime_world_map <- crimemap %>% filter(Year %in% c(2005,2010,2015,2016))
+ggplot(crime_world_map, 
+       aes(x = long, 
+           y = lat, 
+           group = group,
+           fill = Crimes)) +
+  geom_polygon(colour = "grey90") + theme_classic()+
+  #scale_fill_viridis_c(guide = "legend") + 
+  scale_x_continuous() +scale_y_continuous() 
+```
+
 
 \clearpage
 
