@@ -248,7 +248,15 @@ tourism_clean_world_2018 <- tourism_clean_world_a %>%
 tourism_clean_world_c <- tourism_clean_world_2018 %>%
   mutate(Expenditure_in_Dollars=(Expenditure*1000000),
          Arrivals_Divided_Thousands=(Arrivals*1000),
-         Expenditure_per_Person=Expenditure_in_Dollars/Arrivals_Divided_Thousands) 
+         Expenditure_per_Person=Expenditure_in_Dollars/Arrivals_Divided_Thousands) %>%
+  select(Country, Expenditure_per_Person) %>%
+  arrange(-Expenditure_per_Person) %>%
+  top_n(20)
+
+tourism_clean_world_c %>%
+  ggplot(aes(x=reorder(Country,Expenditure_per_Person), y=Expenditure_per_Person)) +
+  geom_col() +
+  coord_flip()
   
 ```
 
