@@ -205,10 +205,15 @@ As can be seen from the above two figures: figure \@ref(fig:statesoffence) and f
 # Tourism trends around the world - edited by Mayunk Bharadwaj
 
 ```{r tourism-further-cleaning}
-#Selecting only relevant variables and Year wider to help in deletion countries with NAs. Have to eliminate countries with 'NA' in any given year because inclusion would bias the analysis.
+# further tidying and removal of countries that didn't have figures for both Tourist Arrival and Expenditure in 1995,2005,2010,2016,2017,2018
+
 tourism_clean_world <- tourism_clean %>%
   select(Country, Series, Year, Value) %>%
-  pivot_wider(names_from= Year, values_from= Value)
+  pivot_wider(names_from= Year, values_from= Value) %>%
+  drop_na() %>% 
+  pivot_longer(c("1995","2005","2010","2016","2017","2018"),names_to="Year",values_to="Value")%>%
+  pivot_wider(names_from = Series, values_from= Value) %>%
+  drop_na()
 ```
 
 ```{r}
