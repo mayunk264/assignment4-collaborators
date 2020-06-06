@@ -202,11 +202,13 @@ As can be seen from the above two figures: figure \@ref(fig:statesoffence) and f
 
 \clearpage
 
-# Section 2a
+# Tourism trends around the world - edited by Mayunk Bharadwaj
 
-```{r}
-
-#Mayunk --> focus on tourism trends around the world
+```{r tourism-further-cleaning}
+#Selecting only relevant variables and pivoting wider
+tourism_clean_world <- tourism_clean %>%
+  select(Country, Series, Year, Value) %>%
+  pivot_wider(names_from = Series, values_from = Value)
 ```
 
 \clearpage
