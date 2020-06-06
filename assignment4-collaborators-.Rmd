@@ -111,51 +111,53 @@ tourism_clean <- tourism[-1,]
 
 ```{r}
 australia <- tourism_clean %>% 
-  dplyr::filter(Country == "Australia")
+  dplyr::filter(Country == "Australia") %>% 
+  select(Country, Series, Year, Value) %>%
+  mutate(Value = as.numeric(Value)) %>% 
+  pivot_wider(names_from= Year, values_from= Value) %>%
+  drop_na() %>% 
+  pivot_longer(c("1995","2005","2010","2016","2017","2018"),names_to="Year",values_to="Value") %>%
+  pivot_wider(names_from = Series, values_from= Value) %>%
+  drop_na()
+
 ```
 
 ![](/Users/ankushv/Desktop/assignment4-collaborators/Images/Map-of-Australia.jpg)
 
 ```{r}
 australia %>% 
-  ggplot(aes(x=Year, y=Value, fill=Series)) + 
-  geom_bar(stat="identity", position=position_dodge(), colour="black") +
-  scale_fill_manual(values=c("yellow", "red")) +
-  xlab("Year") + ylab("") +
-  ggtitle("Tourism Expenditure vs Number of Visitors") +
-  theme_test()
-
-```
-
-
-```{r}
-tourist_arrivals <- australia %>% 
-  dplyr::filter(Series == "Tourist/visitor arrivals (thousands)") %>% 
-   dplyr::select(Country, Year, Value) %>%
-   rename(Visitors = Value) 
-```
-
-```{r}
-tourist_expenditure <- australia %>% 
-  dplyr::filter(Series == "Tourism expenditure (millions of US dollars)") %>% 
-  dplyr::select(Country, Year, Value) %>%
-  rename(Expenditure = Value) 
-```
-
-```{r}
-tourist_arr_exp <- full_join(tourist_arrivals,tourist_expenditure,
-                             by = c("Country","Year")) 
-
-tourist_arr_exp %>% 
-  kableExtra::kable(booktabs = TRUE, caption = "Expenditure and Number of Visitors ('000) in Australia") %>%
+  kableExtra::kable(booktabs = TRUE, caption = " Tourist Arrivals vs Tourism Expenditure in Australia") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 
 ```
 
+
 ```{r}
-tour <- tourist_arr_exp %>% 
-  group_by(Year,Visitors, Expenditure) %>% 
-  mutate(Visitors_Freq = cumsum(Visitors), Expenditure_Freq = cumsum(Expenditure)) %>% 
+Aus_plot <- tourism_clean %>% 
+  dplyr::filter(Country == "Australia") %>% 
+  select(Country, Series, Year, Value) %>%
+  mutate(Value = as.numeric(Value))
+  
+Aus_plot %>% 
+  ggplot(aes(x=Year,y=Value, fill = Series)) +
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+  scale_fill_manual(values=c("red", "yellow")) +
+  xlab("Year") + ylab("") +
+  ggtitle("Tourism Expenditure vs Number of Visitors") +
+  theme_test()
+```
+
+```{r}
+new_aus <- australia %>% 
+  rename(Visitors = `Tourist/visitor arrivals (thousands)`,
+         Expenditure = `Tourism expenditure (millions of US dollars)`)
+```
+
+```{r}
+tour <- new_aus %>% 
+  group_by(Year, Visitors, Expenditure ) %>% 
+  mutate(Visitors_Freq = cumsum(Visitors),
+         Expenditure_Freq = cumsum(Expenditure)) %>% 
   mutate(Visitors_per = (Visitors_Freq/41345)*100) %>% 
   mutate(Expenditure_per = (Expenditure_Freq/191514)*100)
 
@@ -164,13 +166,13 @@ tour <- tourist_arr_exp %>%
 ```{r}
 Visit <- pie(tour$Visitors_per, labels = tour$Year,
              col = rainbow(length(tour$Year)),
-             main = "Percentage of number of Visitors")
+             main = "Number of Visitors")
 ```
 
 ```{r}
 Expen <- pie(tour$Expenditure_per, labels = tour$Year,
              col = topo.colors(length(tour$Year)),
-             main = "Percentage of Expenditure in different Years")
+             main = "Expenditure of Tourist in different years")
 
 ```
 
@@ -183,14 +185,6 @@ Growth_Expen <- tourist_arr_exp %>%
 
 ```
 
-```{r}
-as.numeric(tourist_arr_exp$Visitors)
-as.numeric(tourist_arr_exp$Expenditure)
-
-```
-```{r}
-
-```
 
 
 
