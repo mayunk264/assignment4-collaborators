@@ -77,7 +77,7 @@ names(crime_world)[6] <- "Source"
 crime_world <- crime_world %>%  arrange(region, Year)
 ```
 
-We are looking at the crime rate throughout the world and the mean of each of the `r distinct(crime_world$Crimes)` crimes in each of the `r distinct(crime_world$region)`  different regions, this dataset is from the UN website. This section covers the overall crime rate in the world data and what kind of crimes are at large in different parts of the world. 
+We are looking at the crime rate throughout the world and the mean values of each of the `r distinct(crime_world$Crimes)` crimes in each of the `r distinct(crime_world$region)`  different regions, this dataset is from the UN website. This section covers the overall crime rate in the world data and what kind of crimes are at large in different parts of the world. 
 
 ```{r crimerates}
 crime_rate <- crime_world %>% group_by(Year,Crimes,region) %>% 
@@ -85,10 +85,12 @@ crime_rate <- crime_world %>% group_by(Year,Crimes,region) %>%
 ggplot(crime_rate,
        aes(x = Year,
            y = n,
-           color = Crimes)) + 
+           color = Crimes, fill = Crimes)) + 
   theme(axis.text.x = element_text(angle = 90)) +
   geom_col()
 ```
+
+The plot \@ref(fig:crimerates) depicts a column graph with year on the x-axis and counts on the y-axis, where the 
 
 
 ```{r worldmap}
