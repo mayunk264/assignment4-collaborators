@@ -44,7 +44,7 @@ library(ggplot2)
 library(base)
 library(graphics)
 library(dplyr)
-
+library(here)
 ```
 
 # Intro
@@ -114,6 +114,7 @@ australia <- tourism_clean %>%
   dplyr::filter(Country == "Australia")
 ```
 
+![](/Users/ankushv/Desktop/assignment4-collaborators/Images/Map-of-Australia.jpg)
 
 ```{r}
 australia %>% 
@@ -121,7 +122,7 @@ australia %>%
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   scale_fill_manual(values=c("yellow", "red")) +
   xlab("Year") + ylab("") +
-  ggtitle("Tourism Expenditure vs Number of Visitors ('000)") +
+  ggtitle("Tourism Expenditure vs Number of Visitors") +
   theme_test()
 
 ```
@@ -170,6 +171,24 @@ Visit <- pie(tour$Visitors_per, labels = tour$Year,
 Expen <- pie(tour$Expenditure_per, labels = tour$Year,
              col = topo.colors(length(tour$Year)),
              main = "Percentage of Expenditure in different Years")
+
+```
+
+```{r}
+Growth_Visit <- tourist_arr_exp %>% 
+  mutate(Visitors_Growth = c(0,48,5,43,7,5))
+
+Growth_Expen <- tourist_arr_exp %>% 
+  mutate(Expenditure_Growth = c(0,90,58,26,13,8))
+
+```
+
+```{r}
+as.numeric(tourist_arr_exp$Visitors)
+as.numeric(tourist_arr_exp$Expenditure)
+
+```
+```{r}
 
 ```
 
