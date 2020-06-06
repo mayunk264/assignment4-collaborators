@@ -2,7 +2,7 @@
 title: "Is there a relationship between the level of crime in Australia and tourism?"
 author: Collaborators
 output:
-  pdf_document:
+  bookdown::pdf_document2:
     citation_package: natbib
     highlight: tango
     number_sections: yes
@@ -32,13 +32,14 @@ header-includes:
 ---
 
 
-```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align = "center")
 library(knitr)
 library(kableExtra)
 library(tidyverse)
-library(kableExtra)
 library(janitor)
+library(readr)
+library(lubridate)
 ```
 
 # Intro
@@ -53,15 +54,15 @@ library(janitor)
 
 ```{r read-data}
 # clean the data set
-crime <- read.csv("Data/SYB62_328_201904_Intentional Homicides and Other Crimes.csv") %>%
+crime <- read_csv(here::here("Data", "SYB62_328_201904_Intentional Homicides and Other Crimes.csv")) %>%
   clean_names() %>%
-  rename(Country = x_t12, Year = x, Series = x_1, Value = x_2, footnotes = x_3, Source = x_4)
+  rename(Country_id = t12, Country = intentional_homicides_and_other_crimes, Year = x3, Series = x4, Value = x5, footnotes = x6, Source = x7)
 
 crime_clean <- crime[-1,]
 
-tourism <- read.csv("Data/SYB63_176_202003_Tourist-Visitors Arrival and Expenditure.csv") %>%
+tourism <- read_csv(here::here("Data", "SYB63_176_202003_Tourist-Visitors Arrival and Expenditure.csv")) %>%
   clean_names() %>%
-  rename(Country = i_t33, Year = x, Series = x_1, Tourism_arr_type = x_2, Tourism_arr_footnote = x_3, Value = x_4, Footnotes = x_5, Source = x_6)
+  rename(Country_id = t33, Country = tourist_visitor_arrivals_and_tourism_expenditure, Year = x3, Series = x4, Tourism_arr_type = x5, Tourism_arr_footnote = x6, Value = x7, Footnotes = x8, Source = x9)
 
 tourism_clean <- tourism[-1,]
 ```
@@ -78,12 +79,69 @@ tourism_clean <- tourism[-1,]
 
 \clearpage
 
-# Section 1b
+# Crime Offence in Australia - edited by Yawen Zhang
 
-```{r}
-
-#Yawen --> focus on crime in Australia
+```{r packages in this section}
+library(readxl)
+library(ggthemes)
+library(here)
 ```
+
+```{r readdata, include = FALSE}
+crime_states <- read_csv(here("Data/Book1 offenders, states and territories .csv"))
+crime_sex <- read_excel(here("Data/1. offenders, australia.xlsx"))
+```
+
+## Offence in Australia Each State
+
+In this section, we attempt to explore the crime results in each state. Regarding the Australia Bureau of Statistics (ABS), there are about 15 types of offence. From the year 2016, National Statistics suggest that the most frequently detected offence-types were drug offences, acts intended to cause injury, theft and public order offences in table \@ref(tab:crimetype). As a result, we will study the performance of each state of these four popular offences, as well as the trend for each year. 
+
+```{r crimetype}
+crime_type <- crime_states %>%
+  rename(Offence = `Principal offence`) %>%
+  filter(Offence %in% c("02 Acts intended to cause injury","08 Theft", "10 Illicit drug offences", "13 Public order offences"))
+
+crime_type %>%
+  head() %>%
+  kable(booktabs = TRUE, caption = "Four Offfence-types in Each State") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+```{r statesoffence, fig.height=10, fig.width=12, fig.cap="Frequently Offence in Australia of Each State"}
+crime_type %>%
+  pivot_longer(c("NSW", "Vic.", "Qld.", "SA", "WA", "Tas.", "ACT", "NT"), names_to = "States", values_to = "Rate") %>%
+  ggplot(aes(x = Year, y = Rate, group = Offence, color = Offence)) +
+  geom_line() +
+  scale_colour_manual(values=c(`02 Acts intended to cause injury`="#FF6600", `08 Theft`="#663399", `10 Illicit drug offences`="#339999", `13 Public order offences`="#CC0033")) +
+  theme(axis.title = element_text(size=17,face="bold"), axis.text = element_text(size=10)) +
+  facet_wrap(~ States, ncol = 3)
+```
+
+From figure \@ref(fig:statesoffence), VIC, ACT and WA are three safer states in Australia, all these four offence-types are below 500 offenders per 100,000 persons from 2016 to 2019. Illicit drug offences are relatively higher in SA compare with other states over four years. The offender rate of theft in SA and NSW have a significant decrease from 500 to 250 offenders per 100,000 persons over the same period. Northern Territory has the highest crime rate over the eight states, especially for public order offences. The maximum amount of public order offences was 2500 offenders per 100,000 persons and decreased to 1750 offenders per 100,000 persons in 2018. Despite this decrease, public order offences remained the most common principal offence. 
+
+## Australian Offence by Gender
+```{r crime-by-gender}
+crime_gender <- crime_sex %>%
+  rename(Offence = `Principal offence`, "2009" = `2008–09`, "2010" = `2009–10`, "2011" = `2010–11`, "2012" = `2011–12`, "2013" = `2012–13`, "2014" = `2013–14`, "2015" = `2014–15`, "2016" = `2015–16`, "2017" = `2016–17`, "2018" = `2017–18`, "2019" = `2018–19`) %>%
+  filter(!Offence == "Total") %>%
+  pivot_longer(c("2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"), names_to = "Year", values_to = "Rate")
+```
+
+```{r offender-by-gender, fig.height=10, fig.width=10, fig.cap="Offenders in Each State by Genders"}
+crime_gender %>%
+  ggplot(aes(x = Year, y = Rate, group = Gender, color = Gender)) +
+  geom_line() +
+  theme(axis.text.x = element_text(size = 10, angle = 60, vjust = .5)) +
+  facet_wrap(~ Offence, ncol = 3)
+```
+
+
+To explore the crime rate of Australian men and women, ABS provided a dataset which includes 15 types of offences from 2009 to 2019. Figure \@ref(fig:offender-by-gender) shows that the male offender rate was two to four times higher than the female offender rate, but they have similar trends over the year. Acts intended to cause injury was the most common principal offence for male offenders with 600 male offenders per 100,000 males. Illicit drug offences were the most common principal offence for female offenders with 200 female offenders per 100,000 females. It is necessary mentioning that, both male and female in theft offences shown a downward trend from 2013 until now. In contrast, illicit drug offences provide an increasing trend of male and female from the year 2015. 
+
+
+As can be seen from the above two figures: figure \@ref(fig:statesoffence) and figure \@ref(fig:offender-by-gender), the crime rates of different states in Australia are different, and at the same time, the crime rate of male is extremely higher than male. 
+
 
 \clearpage
 
@@ -105,12 +163,107 @@ tourism_clean <- tourism[-1,]
 
 \clearpage
 
-# Section 3
+# Relationship between Crime and Tourism - edited by Yuheng Cui 
 
-```{r}
-
-#Yuheng --> Relationship between Crime and Tourism
+```{r packages used in this section}
+library(naniar)
+library(broom)
+library(rpart)
+library(rpart.plot)
 ```
+
+In this section we try to find the relationship amongst the safety, number of visitor arrivals, and visitor spending. Figure \@ref(fig:vismiss) specifies the variables having missing values. To make our models available, we only kept the variable having least missing values. Table \@ref(tab:jointables) is the combined table of crime and tourism. There are still some missing values in the table but they are few.
+
+```{r vismiss, fig.cap = "missing value in crime data set"}
+crime_clean_wide <- crime_clean %>%
+  select(Country, Year, Series, Value) %>%
+  pivot_wider(names_from = "Series", values_from = "Value")
+
+gg_miss_var(crime_clean_wide)
+```
+
+\clearpage
+
+```{r jointables}
+crime_wide <- crime_clean_wide %>%
+  clean_names() %>%
+  select(country, year, intentional_homicide_rates_per_100_000)
+
+tour_crime <- tourism_clean %>%
+  clean_names() %>%
+  select(country, year, series, value) %>%
+  pivot_wider(names_from = "series", values_from = "value") %>%
+  inner_join(crime_wide, by = c("country", "year")) %>%
+  clean_names() %>%
+  rename(tour_exp_millionsusd = tourism_expenditure_millions_of_us_dollars, visitor_thousands =tourist_visitor_arrivals_thousands) %>%
+  mutate(tour_exp_millionsusd = as.numeric(tour_exp_millionsusd),
+         visitor_thousands = as.numeric(visitor_thousands),
+         intentional_homicide_rates_per_100_000 = as.numeric(intentional_homicide_rates_per_100_000),
+         year = year(as.Date(year, "%Y")))
+
+tour_crime %>%
+  head() %>%
+  kable(booktabs = TRUE, caption = "tourism/crime table") %>%  
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+We created two linear models of visitor arrivals: one model used country as one of the explanatory variables while the other did not. In Table \@ref(tab:lmvisitor), we can see much higher $R^2$ of the model with country, which had $R^2$ of 97.5%. That is, 97.5% of the variation of the explanatory variables can be explained by the model. In sum, country had the absolute influence. That is, holding crime rate and year constant, some countries were more attractive to tourists. This is true, because some countries have more landmarks and viewpoints than other countries.
+
+```{r lmvisitor}
+lm_tour_crime_1 <- lm(visitor_thousands~year +intentional_homicide_rates_per_100_000, data = tour_crime)
+lm_tour_crime_2 <-lm(visitor_thousands~year +intentional_homicide_rates_per_100_000 +country, data = tour_crime)
+
+bind_rows(model1 = glance(lm_tour_crime_1)[c(1:2)],
+          model2 = glance(lm_tour_crime_2)[c(1:2)]) %>%
+  rowid_to_column()%>%
+  rename(model = rowid) %>%
+  kable(booktabs = TRUE, caption = "Comparison between two models") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+\clearpage
+
+Figure \@ref(fig:lmtourcrimeresid) depicts the predicted values and residual values. The model performed well in the range from 0 to 10000; and most observations were in this range. Beyond 10000, fewer observations spread, the outliers were few. 
+
+```{r lmtourcrimeresid, fig.cap = "Predicted value and Residual value (the model of visitor arrivals)"}
+augment(lm_tour_crime_2, data = tour_crime) %>%
+  ggplot(aes(x = .fitted, 
+             y = .resid)) +
+  geom_point(alpha = 0.2) +
+  xlab("Predicted value") +
+  ylab("Residual value")
+```
+
+\clearpage
+
+Next, we built a linear model of visitor spending. Three models all used country and year as explanatory variables. However, in model 1, we used intentional homicide rates as additional explanatory variables; in model 2, we used visitor arrivals as additional explanatory variables; in model 3, we used both intentional homicide rates and visitor arrivals. Table \@ref(tab:lmspendingvisitor) shows three models were all good but model 3 was the best. There were 96.54% of variations in explanatory variables could be explained by model 2. In sum, the number of visitor arrivals had bigger influence than crime rate on the fitness of the model. That is, holding crime rate and year constant, some countries were more attractive to tourists.
+
+```{r lmspendingvisitor}
+lm_spending_visitor1 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 +country + year, data = tour_crime)
+lm_spending_visitor2 <- lm(tour_exp_millionsusd ~ visitor_thousands +country +year, data = tour_crime)
+lm_spending_visitor3 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 + visitor_thousands +country +year, data = tour_crime)
+
+bind_rows(model1 = glance(lm_spending_visitor1)[c(1:2)],
+          model2 = glance(lm_spending_visitor2)[c(1:2)],
+          model3 = glance(lm_spending_visitor3)[c(1:2)]) %>%
+  rowid_to_column()%>%
+  rename(model = rowid)%>%
+  kable(booktabs = TRUE, caption = "The fitness of visitor spending model") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+\clearpage
+
+```{r lmspendingplot, fig.cap = "Predicted value and Residual value (the model of visitor spending)"}
+augment(lm_spending_visitor2, tour_crime) %>%  
+  ggplot(aes(x = .fitted, 
+             y = .resid)) +
+  geom_point(alpha = 0.2) +
+  xlab("Predicted value") +
+  ylab("Residual value")
+```
+Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range below 75000. There were few outliers above 75000.
+
+In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist.
+
 
 \clearpage
 
