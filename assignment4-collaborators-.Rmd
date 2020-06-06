@@ -109,6 +109,16 @@ tourism_clean <- tourism[-1,]
 #Ankush --> focus on tourism in Australia
 ```
 
+Australia (also known as Australasia), is large country reaching from the tropics to mid-latitudes in the Oceania continent. The Aussie mainland is the world's largest island and the driest continent. It has a land area of 8 million $km^2$ and a population of 25.5 million as of 2020.
+
+Australia is world famous for its natural wonders and wide spaces, beaches, deserts, bushes. It is one of the world's most highly urbanised and is known for the attractions of its large cities such as Melbourne, Sydney, Brisbane and Perth. Some of most visited tourist attractions in Australia are: 
+
+- The Great Barrier Reef, Queensland
+- Sydney Opera House and Harbour Bridge, New South Wales
+- Great Ocean Road, Victoria
+- Uluru, Northern Territory
+- Kangroo Island, South Australia
+
 ```{r}
 australia <- tourism_clean %>% 
   dplyr::filter(Country == "Australia") %>% 
@@ -124,12 +134,15 @@ australia <- tourism_clean %>%
 
 ![](/Users/ankushv/Desktop/assignment4-collaborators/Images/Map-of-Australia.png)
 
+Table \@ref(tab:austable) shows the number of tourist ('000) and the tourism expenditure (millions of US dollars) is the amount that is spent by tourists.    
+
 ```{r austable}
 australia %>% 
   kableExtra::kable(booktabs = TRUE, caption = "Tourist Arrivals vs Tourism Expenditure in Australia") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
+Australia's economy benefits significantly from tourism and it contirbutes to 3.5% of the GDP which is 60.8 billion AUD as of the financial year 2018/19 . On a standardised scale, Figure \@ref(fig:ausbar) is a pictorial representation of the tourist arrivals in and the expenditure contributed by them on their visit to Australia. We can understand, the travel and tourism sector is a major attraction and the results shows the number keep increasing every year. 
 
 ```{r ausbar, fig.cap= "Amount of expenditure by tourists in Australia"}
 Aus_plot <- tourism_clean %>% 
@@ -145,14 +158,14 @@ Aus_plot %>%
   theme_test()
 ```
 
-```{r}
+```{r rename-columns}
 new_aus <- australia %>% 
   rename(Visitors = `Tourist/visitor arrivals (thousands)`,
          Expenditure = `Tourism expenditure (millions of US dollars)`)
 ```
 
 
-```{r}
+```{r new-dataframe}
 tour <- new_aus %>% 
   group_by(Year, Visitors, Expenditure ) %>% 
   mutate(Visitors_Freq = cumsum(Visitors),
@@ -162,6 +175,7 @@ tour <- new_aus %>%
 
 ```
 
+Figure \@ref(fig:ausvisitpie) is pie chart showing of the cumilative percentage contibution of the tourist arrivals over the years between 199-2018. 22.36%, was a major part of the tourist arrival contibution came in the year 2018 and the least was 9.01% which came in the year 1995. 
 
 ```{r ausvisitpie, fig.cap="Percentage of arrivals/visitors in Australia"}
 piepercent <- round(100*tour$Visitors_Freq/sum(tour$Visitors_Freq), 2)
@@ -169,7 +183,10 @@ piepercent <- round(100*tour$Visitors_Freq/sum(tour$Visitors_Freq), 2)
 pie(tour$Visitors_per, labels = piepercent,
     col = rainbow(length(tour$Year)),
     main = "Tourist Arrivals in Australia in different years (%)")
+
 ```
+
+Figure \@ref(fig:ausexpenpie) is a pie chart comprising of the cumilative expenditure by tourist on their visit to Australia during the respective years. 24.71%, was the highest expenditure contibution by tourist which took place in the year 2018 and 5.41% was the least contribution by tourist in the year 1995. 
 
 ```{r ausexpenpie, fig.cap="Percentage of expenditure by tourist"}
 pieper <- round(100*tour$Expenditure_Freq/sum(tour$Expenditure_Freq), 2)
