@@ -122,17 +122,16 @@ australia <- tourism_clean %>%
 
 ```
 
-![](/Users/ankushv/Desktop/assignment4-collaborators/Images/Map-of-Australia.jpg)
+![](/Users/ankushv/Desktop/assignment4-collaborators/Images/Map-of-Australia.png)
 
-```{r}
+```{r austable}
 australia %>% 
-  kableExtra::kable(booktabs = TRUE, caption = " Tourist Arrivals vs Tourism Expenditure in Australia") %>%
+  kableExtra::kable(booktabs = TRUE, caption = "Tourist Arrivals vs Tourism Expenditure in Australia") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
-
 ```
 
 
-```{r}
+```{r ausbar, fig.cap= "Amount of expenditure by tourists in Australia"}
 Aus_plot <- tourism_clean %>% 
   dplyr::filter(Country == "Australia") %>% 
   select(Country, Series, Year, Value) %>%
@@ -143,7 +142,6 @@ Aus_plot %>%
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   scale_fill_manual(values=c("red", "yellow")) +
   xlab("Year") + ylab("") +
-  ggtitle("Tourism Expenditure vs Number of Visitors") +
   theme_test()
 ```
 
@@ -152,6 +150,7 @@ new_aus <- australia %>%
   rename(Visitors = `Tourist/visitor arrivals (thousands)`,
          Expenditure = `Tourism expenditure (millions of US dollars)`)
 ```
+
 
 ```{r}
 tour <- new_aus %>% 
@@ -163,28 +162,23 @@ tour <- new_aus %>%
 
 ```
 
-```{r}
-Visit <- pie(tour$Visitors_per, labels = tour$Year,
-             col = rainbow(length(tour$Year)),
-             main = "Number of Visitors")
+
+```{r ausvisitpie, fig.cap="Percentage of arrivals/visitors in Australia"}
+piepercent <- round(100*tour$Visitors_Freq/sum(tour$Visitors_Freq), 2)
+
+pie(tour$Visitors_per, labels = piepercent,
+    col = rainbow(length(tour$Year)),
+    main = "Tourist Arrivals in Australia in different years (%)")
 ```
 
-```{r}
-Expen <- pie(tour$Expenditure_per, labels = tour$Year,
+```{r ausexpenpie, fig.cap="Percentage of expenditure by tourist"}
+pieper <- round(100*tour$Expenditure_Freq/sum(tour$Expenditure_Freq), 2)
+
+pie(tour$Expenditure_per, labels = pieper,
              col = topo.colors(length(tour$Year)),
-             main = "Expenditure of Tourist in different years")
+             main = "Expenditure of Tourist in Australia in different years (%)")
 
 ```
-
-```{r}
-Growth_Visit <- tourist_arr_exp %>% 
-  mutate(Visitors_Growth = c(0,48,5,43,7,5))
-
-Growth_Expen <- tourist_arr_exp %>% 
-  mutate(Expenditure_Growth = c(0,90,58,26,13,8))
-
-```
-
 
 
 
