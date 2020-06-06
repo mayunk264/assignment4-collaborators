@@ -84,13 +84,12 @@ crime_rate <- crime_world %>% group_by(Year,Crimes,region) %>%
    count(Crimes)
 ggplot(crime_rate,
        aes(x = Year,
-           y = n,
-           color = Crimes, fill = Crimes)) + 
+           y = n)) + 
   theme(axis.text.x = element_text(angle = 90)) +
   geom_col()
 ```
 
-The plot \@ref(fig:crimerates) depicts a column graph with year on the x-axis and counts on the y-axis, where the 
+The plot \@ref(fig:crimerates) depicts a column graph with year on the x-axis and counts on the y-axis, where the the years in the dataset vary from 2000 through to year 2016, looking at this plot it can be infered that the rate of crimes in the year 2010 was the highest 
 
 
 ```{r worldmap}
