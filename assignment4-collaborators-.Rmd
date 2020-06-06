@@ -230,7 +230,7 @@ tourism_clean_world_a <- tourism_clean_world %>%
          Arrivals=`Tourist/visitor arrivals (thousands)`)
 ```
 
-```{r global-tourism, fig.cap=""Global Tourism Trends by Year"}
+```{r global-tourism, fig.cap="Global Tourism Trends by Year"}
 tourism_clean_world_b <- tourism_clean_world_a %>%
   group_by(Year) %>%
   summarise(Global_Yearly_Arrivals=sum(Arrivals),
@@ -242,7 +242,7 @@ tourism_clean_world_b <- tourism_clean_world_a %>%
 
 ```
 
-```{r}
+```{r growth-figures}
 tourist_growth <- (956957.0-387302.2)/387302.2
 expenditure_growth <- (1207846.6-366438.1)/366438.1
 ```
@@ -271,7 +271,7 @@ tourism_clean_world_2018 <- tourism_clean_world_a %>%
 
 So, where are these tourists actually going?  As we can see in \@ref(tab:tourist-1995), France was the most popular destination with ~60 million tourists visiting, followed by the United States of America and then Spain. By 2018, as evidenced in \@ref(tab:tourist-2018) these three destinations remained the most popular with France still leading the way. Spain had overtaken the U.S., however, as the second most popular destination.
 
-```{r expenditure-per-person, fig.cap="Average Expenditure per Tourist in 2018 by Country}
+```{r expenditure-per-person, fig.cap="Average Expenditure per Tourist in 2018 by Country"}
 
 tourism_clean_world_c <- tourism_clean_world_a %>%
   filter(Year==2018) %>%
