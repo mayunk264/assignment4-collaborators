@@ -134,6 +134,8 @@ australia <- tourism_clean %>%
 
 ![](/Users/ankushv/Desktop/assignment4-collaborators/Images/Map-of-Australia.png)
 
+\newpage
+
 Table \@ref(tab:austable) shows the number of tourist ('000) and the tourism expenditure (millions of US dollars) is the amount that is spent by tourists.    
 
 ```{r austable}
@@ -157,6 +159,8 @@ Aus_plot %>%
   xlab("Year") + ylab("") +
   theme_test()
 ```
+
+\newpage
 
 ```{r rename-columns}
 new_aus <- australia %>% 
