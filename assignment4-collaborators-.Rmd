@@ -260,6 +260,15 @@ tourism_clean_world_2018 <- tourism_clean_world_a %>%
   filter(Year==2018)
 ```
 
+```{r expenditure-per-person}
+
+tourism_clean_world_c <- tourism_clean_world_2018 %>%
+  mutate(Expenditure_in_Dollars=(Expenditure*1000000),
+         Arrivals_Divided_Thousands=(Arrivals*1000),
+         Expenditure_per_Person=Expenditure_in_Dollars/Arrivals_Divided_Thousands) 
+  
+```
+
 
 \clearpage
 
