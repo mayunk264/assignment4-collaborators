@@ -241,6 +241,14 @@ tourism_clean_world_b %>%
   geom_line()
 ```
 
+```{r expenditure-plot, fig.cap="Global Tourist Expenditure by Year"}
+
+tourism_clean_world_b %>%
+  ggplot(aes(x=Year,y=Global_Yearly_Expenditure)) +
+  geom_point() +
+  geom_line()
+
+```
 
 \clearpage
 
