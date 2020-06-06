@@ -217,7 +217,11 @@ tourism_clean_world <- tourism_clean %>%
 ```
 
 ```{r}
-
+#changing Year, Expenditure and Arrivals cloumn types to numbers from characters.
+tourism_clean_world %>%
+  mutate(`Tourism expenditure (millions of US dollars)`=as.numeric(`Tourism expenditure (millions of US dollars)`),
+         `Tourist/visitor arrivals (thousands)`=as.numeric(`Tourist/visitor arrivals (thousands)`),
+         Year =as.numeric(Year))
 ```
 
 \clearpage
