@@ -250,6 +250,17 @@ tourism_clean_world_b %>%
 
 ```
 
+```{r}
+tourism_clean_world_1995 <- tourism_clean_world_a %>%
+  filter(Year==1995)
+```
+
+```{r}
+tourism_clean_world_2018 <- tourism_clean_world_a %>%
+  filter(Year==2018)
+```
+
+
 \clearpage
 
 # Section 2b
