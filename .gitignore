@@ -7,3 +7,4 @@ MAlonzo/**
 *.log
 *.tex
 *.DS_Store
+.RData
