@@ -520,4 +520,8 @@ In sum, the linear models above are good models and may be used to respectively 
 
 \clearpage
 
+# Acknowledgments
+The packages used to produce this report are: 
+ggplot2 [@ggplot2]
+
 # References
