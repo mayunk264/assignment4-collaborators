@@ -171,7 +171,7 @@ crime_type <- crime_states %>%
 
 crime_type %>%
   head() %>%
-  kable(booktabs = TRUE, caption = "Four Offfence-types in Each State") %>%
+  kable(booktabs = TRUE, caption = "Four Offence-types in Each State") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
@@ -205,7 +205,7 @@ crime_gender %>%
 ```
 
 
-To explore the crime rate of Australian men and women, ABS provided a dataset which includes 15 types of offences from 2009 to 2019. Figure \@ref(fig:offender-by-gender) shows that the male offender rate was two to four times higher than the female offender rate, but they have similar trends over the year. Acts intended to cause injury was the most common principal offence for male offenders with 600 male offenders per 100,000 males. Illicit drug offences were the most common principal offence for female offenders with 200 female offenders per 100,000 females. It is necessary mentioning that, both male and female in theft offences shown a downward trend from 2013 until now. In contrast, illicit drug offences provide an increasing trend of male and female from the year 2015. 
+To explore the crime rate of men and women in Australia, ABS provided a dataset which includes 15 types of offences from 2009 to 2019. Figure \@ref(fig:offender-by-gender) shows that the male offender rate was two to four times higher than the female offender rate, but they have similar trends over the year. Acts intended to cause injury was the most common principal offence for male offenders with 600 male offenders per 100,000 males. Illicit drug offences were the most common principal offence for female offenders with 200 female offenders per 100,000 females. It is necessary mentioning that, both male and female in theft offences shown a downward trend from 2013 until now. In contrast, illicit drug offences provide an increasing trend of male and female from the year 2015. 
 
 
 As can be seen from the above two figures: figure \@ref(fig:statesoffence) and figure \@ref(fig:offender-by-gender), the crime rates of different states in Australia are different, and at the same time, the crime rate of male is extremely higher than male. 
