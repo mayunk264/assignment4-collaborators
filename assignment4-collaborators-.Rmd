@@ -15,11 +15,10 @@ output:
     toc_depth: '2'
 bibliography: references.bib 
 biblio-style: plainnat
-subtitle: "Machine learning consultancy"
 header-includes:
 - \usepackage{titling}
 - \pretitle{\begin{center} 
-  \includegraphics[width=5in,height=6in]{Images/sam-albury-oA7MMRxTVzo-unsplash.jpg}\LARGE\\}
+  \includegraphics[width=5in,height=6in]{Images/crimetourism.jpeg}\LARGE\\}
 - \posttitle{\end{center}}
 - \usepackage{fontawesome}
 - \usepackage[most]{tcolorbox}
