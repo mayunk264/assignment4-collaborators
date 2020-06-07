@@ -386,7 +386,7 @@ tour <- new_aus %>%
 
 ```
 
-##Tourist Arrivals
+## Tourist Arrivals
 
 Figure \@ref(fig:ausvisitpie) is pie chart showing of the cumilative percentage contibution of the tourist arrivals over the years between 199-2018. 22.36%, was a major part of the tourist arrival contibution came in the year 2018 and the least was 9.01% which came in the year 1995. 
 
