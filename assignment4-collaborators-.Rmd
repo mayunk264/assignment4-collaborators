@@ -285,7 +285,7 @@ tourism_clean_world_2018 <- tourism_clean_world_a %>%
 tourism_clean_world_2018
 ```
 
-So, where are these tourists actually going?  As we can see in \@ref(tab:tourist-1995), France was the most popular destination with ~60 million tourists visiting, followed by the United States of America and then Spain. By 2018, as evidenced in \@ref(tab:tourist-2018) these three destinations remained the most popular with France still leading the way. Spain had overtaken the U.S., however, as the second most popular destination.
+So, where are these tourists actually going?  As we can see in Table \@ref(tab:tourist-1995), France was the most popular destination with ~60 million tourists visiting, followed by the United States of America and then Spain. By 2018, as evidenced in Table \@ref(tab:tourist-2018) these three destinations remained the most popular with France still leading the way. Spain had overtaken the U.S., however, as the second most popular destination.
 
 ```{r expenditure-data}
 
