@@ -521,7 +521,10 @@ augment(lm_spending_visitor2, tour_crime) %>%
 ```
 Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range below 75000. There were few outliers above 75000.
 
-In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist.
+# Conclusion
+
+
+(Yuheng) In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist.
 
 
 \clearpage
