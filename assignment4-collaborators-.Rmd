@@ -251,6 +251,8 @@ tourism_clean_world_b <- tourism_clean_world_a %>%
   kable(caption="Global Tourism Trends by Year") %>%
   kable_styling()
 
+tourism_clean_world_b
+
 ```
 
 ```{r growth-figures}
