@@ -214,11 +214,6 @@ As can be seen from the above two figures: figure \@ref(fig:statesoffence) and f
 \clearpage
 
 # Tourism trends around the world - edited by Mayunk Bharadwaj
-
-Having looked at Crime trends around the world and in Australia, let's change tact and now look at Tourism trends. Tourism is critical to the health of the global economy - according to the World Travel and Tourism Council (insert reference later -> https://wttc.org/Research/Economic-Impact), Tourism represents 10.3% of the global GDP and is responsible for creating 1 in 10 jobs around the world. The data will be using is the UN's ['Tourist/visitor arrivals and tourism expenditure'](https://data.un.org/_Docs/SYB/CSV/SYB63_176_202003_Tourist-Visitors%20Arrival%20and%20Expenditure.csv) dataset avaiable on the [UN data webpage](https://data.un.org). The data provides information on Tourism Arrivals (how many tourists arrive in each country) and Tourism Expenditure (the amount of money tourists spend in a country they are visiting). Data was collected in the years 1995, 2005, 2010, 2016, 2017 and 2018. In some instances, a full view of Tourism Arrival and Tourism Expenditure was not available for every single country in all of the years. As such, these countries were removed to preserve the integrity of analysis when comparing global tourism trends from year to year.
-
-So, let's dive into specifics. The below analysis will look at two main variables - the number of 'tourists' in thousands of people (measured by tourist arrivals in each country) and global tourist expenditure (that is, the amount of money spent by tourists) measured in millions of U.S. dollars.
-
 ```{r tourism-further-cleaning}
 # further tidying and removal of countries that didn't have figures for both Tourist Arrival and Expenditure in 1995,2005,2010,2016,2017,2018
 
@@ -241,6 +236,10 @@ tourism_clean_world_a <- tourism_clean_world %>%
          Arrivals=`Tourist/visitor arrivals (thousands)`)
 ```
 
+Having looked at Crime trends around the world and in Australia, let's change tact and now look at Tourism trends. Tourism is critical to the health of the global economy - according to the World Travel and Tourism Council (insert reference later -> https://wttc.org/Research/Economic-Impact), Tourism represents 10.3% of the global GDP and is responsible for creating 1 in 10 jobs around the world. The data will be using is the UN's ['Tourist/visitor arrivals and tourism expenditure'](https://data.un.org/_Docs/SYB/CSV/SYB63_176_202003_Tourist-Visitors%20Arrival%20and%20Expenditure.csv) dataset avaiable on the [UN data webpage](https://data.un.org). The data provides information on Tourism Arrivals (how many tourists arrive in each country) and Tourism Expenditure (the amount of money tourists spend in a country they are visiting). Data was collected in the years 1995, 2005, 2010, 2016, 2017 and 2018. In some instances, a full view of Tourism Arrival and Tourism Expenditure was not available for every single country in all of the years. As such, these countries were removed to preserve the integrity of analysis when comparing global tourism trends from year to year.
+
+So, let's dive into specifics. The below analysis will look at two main variables - the number of 'tourists' in thousands of people (measured by tourist arrivals in each country) and global tourist expenditure (that is, the amount of money spent by tourists) measured in millions of U.S. dollars.
+
 ```{r global-tourism, fig.cap="Global Tourism Trends by Year"}
 tourism_clean_world_b <- tourism_clean_world_a %>%
   group_by(Year) %>%
@@ -249,27 +248,27 @@ tourism_clean_world_b <- tourism_clean_world_a %>%
   rename("Global Tourist Arrivals in thousands of people" = Global_Yearly_Arrivals,
          "Global Tourist Expenditure in millions of U.S. dollars" = Global_Yearly_Expenditure) %>%
   kable(caption="Global Tourism Trends by Year") %>%
-  kable_styling()
+  kable_styling(latex_options = "hold_position")
 
 tourism_clean_world_b
 
 ```
+
+Table \@ref(tab:global-tourism) shows us how Global Tourist Arrivals and their Expenditure has changed over the years. In 1995, there were ~387.30 million tourist arrivals around the globe. By 2018, this number had ballooned to just under a billion people at ~956.96 million tourist arrivals around the globe. This represents a 147% growth rate. Expenditure by these tourists has similarly grown. In 1995, tourists were spending 366,438 million U.S. dollars. By 2018, this number had grown by a whopping 230% to $1,207,846.6 million U.S. dollars. The growth in amount of tourists is outpaced by the growth in amount these tourists are spending!
 
 ```{r growth-figures}
 tourist_growth <- (956957.0-387302.2)/387302.2
 expenditure_growth <- (1207846.6-366438.1)/366438.1
 ```
 
-Table \@ref(tab:global-tourism) shows us how Global Tourist Arrivals and their Expenditure has changed over the years. In 1995, there were ~387.30 million tourist arrivals around the globe. By 2018, this number had ballooned to just under a billion people at ~956.96 million tourist arrivals around the globe. This represents a 147% growth rate. Expenditure by these tourists has similarly grown. In 1995, tourists were spending 366,438 million U.S. dollars. By 2018, this number had grown by a whopping 230% to $1,207,846.6 million U.S. dollars. The growth in amount of tourists is outpaced by the growth in amount these tourists are spending!
-
 ```{r tourist-1995, fig.cap="Top 3 Tourist Destinations in 1995"}
 tourism_clean_world_1995 <- tourism_clean_world_a %>%
   filter(Year==1995) %>%
   arrange(-Arrivals) %>%
-  select(-Expenditure) %>%
+  select(-Expenditure,-Year) %>%
   top_n(3) %>%
   kable(caption="Top 3 Tourist Destinations in 1995") %>%
-  kable_styling()
+  kable_styling(latex_options = "hold_position")
 
 tourism_clean_world_1995
 ```
@@ -278,10 +277,10 @@ tourism_clean_world_1995
 tourism_clean_world_2018 <- tourism_clean_world_a %>%
   filter(Year==2018) %>%
   arrange(-Arrivals) %>%
-  select(-Expenditure) %>%
+  select(-Expenditure,-Year) %>%
   top_n(3)%>%
   kable(caption="Top 3 Tourist Destinations in 2018") %>%
-  kable_styling()
+  kable_styling(latex_options = "hold_position")
 
 tourism_clean_world_2018
 ```
