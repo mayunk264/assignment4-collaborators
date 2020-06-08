@@ -215,7 +215,7 @@ As can be seen from the above two figures: figure \@ref(fig:statesoffence) and f
 
 # Tourism trends around the world - edited by Mayunk Bharadwaj
 
-Having looked at Crime trends around the world and in Australia, let's change tact and now look at Tourism trends. Tourism is critical to the health of the global economy - according to the World Travel and Tourism Council (insert reference later -> https://wttc.org/Research/Economic-Impact), Tourism represents 10.3% of the global GDP and is responsible for creating 1 in 10 jobs around the world.
+Having looked at Crime trends around the world and in Australia, let's change tact and now look at Tourism trends. Tourism is critical to the health of the global economy - according to the World Travel and Tourism Council (insert reference later -> https://wttc.org/Research/Economic-Impact), Tourism represents 10.3% of the global GDP and is responsible for creating 1 in 10 jobs around the world. The data will be using is the UN's ['Tourist/visitor arrivals and tourism expenditure'](https://data.un.org/_Docs/SYB/CSV/SYB63_176_202003_Tourist-Visitors%20Arrival%20and%20Expenditure.csv) dataset avaiable on the [UN data webpage](https://data.un.org). The data provides information on Tourism Arrivals (how many tourists arrive in each country) and Tourism Expenditure (the amount of money tourists spend in a country they are visiting). Data was collected in the years 1995, 2005, 2010, 2016, 2017 and 2018. In some instances, a full view of Tourism Arrival and Tourism Expenditure was not available for every single country in all of the years. As such, these countries were removed to preserve the integrity of analysis when comparing global tourism trends from year to year.
 
 So, let's dive into specifics. The below analysis will look at two main variables - the number of 'tourists' in thousands of people (measured by tourist arrivals in each country) and global tourist expenditure (that is, the amount of money spent by tourists) measured in millions of U.S. dollars.
 
@@ -268,6 +268,8 @@ tourism_clean_world_1995 <- tourism_clean_world_a %>%
   top_n(3) %>%
   kable(caption="Top 3 Tourist Destinations in 1995") %>%
   kable_styling()
+
+tourism_clean_world_1995
 ```
 
 ```{r tourist-2018, fig.cap="Top 3 Tourist Destinations in 2018"}
@@ -278,11 +280,13 @@ tourism_clean_world_2018 <- tourism_clean_world_a %>%
   top_n(3)%>%
   kable(caption="Top 3 Tourist Destinations in 2018") %>%
   kable_styling()
+
+tourism_clean_world_2018
 ```
 
 So, where are these tourists actually going?  As we can see in \@ref(tab:tourist-1995), France was the most popular destination with ~60 million tourists visiting, followed by the United States of America and then Spain. By 2018, as evidenced in \@ref(tab:tourist-2018) these three destinations remained the most popular with France still leading the way. Spain had overtaken the U.S., however, as the second most popular destination.
 
-```{r expenditure-per-person, fig.cap="Average Expenditure per Tourist in 2018 by Country"}
+```{r expenditure-data}
 
 tourism_clean_world_c <- tourism_clean_world_a %>%
   filter(Year==2018) %>%
@@ -292,7 +296,9 @@ tourism_clean_world_c <- tourism_clean_world_a %>%
   select(Country, Expenditure_per_Person) %>%
   arrange(-Expenditure_per_Person) %>%
   top_n(20)
+```
 
+```{r expenditure-per-person, fig.cap="Average Expenditure per Tourist in 2018 by Country"}
 tourism_clean_world_c %>%
   ggplot(aes(x=reorder(Country,Expenditure_per_Person), y=Expenditure_per_Person)) +
   geom_col() +
