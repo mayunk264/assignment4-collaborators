@@ -18,7 +18,7 @@ biblio-style: plainnat
 header-includes:
 - \usepackage{titling}
 - \pretitle{\begin{center} 
-  \includegraphics[width=5in,height=6in]{Images/crimetourism.jpeg}\LARGE\\}
+  \includegraphics[width=5in,height=6in]{Images/tourism.jpg}\LARGE\\}
 - \posttitle{\end{center}}
 - \usepackage{fontawesome}
 - \usepackage[most]{tcolorbox}
