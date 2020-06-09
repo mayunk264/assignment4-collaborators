@@ -433,8 +433,6 @@ pie(tour$Expenditure_per, labels = pieper,
 ```{r packages used in this section}
 library(naniar)
 library(broom)
-library(rpart)
-library(rpart.plot)
 ```
 
 In this section we try to find the relationship amongst the safety, number of visitor arrivals, and visitor spending. Figure \@ref(fig:vismiss) specifies the variables having missing values. To make our models available, we only kept the variable having least missing values. Table \@ref(tab:jointables) is the combined table of crime and tourism. There are still some missing values in the table but they are few.
@@ -537,6 +535,6 @@ Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range 
 
 # Acknowledgments
 The packages used to produce this report are: 
-ggplot2 [@ggplot2]
+ggplot2 [@ggplot2], broom [@broom], naniar [@naniar]
 
 # References
