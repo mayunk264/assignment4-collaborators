@@ -18,7 +18,7 @@ biblio-style: plainnat
 header-includes:
 - \usepackage{titling}
 - \pretitle{\begin{center} 
-  \includegraphics[width=5in,height=6in]{Images/crimetourism.jpeg}\LARGE\\}
+  \includegraphics[width=5in,height=6in]{Images/tourism.jpg}\LARGE\\}
 - \posttitle{\end{center}}
 - \usepackage{fontawesome}
 - \usepackage[most]{tcolorbox}
@@ -48,6 +48,12 @@ library(png)
 ```
 
 # Intro
+
+Tourism is one of the fastest growing industries internationally and it is the primary contributor to the economies of most countries in the world. The tourism industry helps raise the employment rate and income levels and hence why it is one of the most important industries in almost every nation globally. Tourism is a vital earner of foreign exchange that is needed to pay for imports, maintain exchange rates. According to World Tourism Organisation, tourism generates 6% of the total worldwide exports, and about 10% of all employment. 
+
+However, when we as tourists think about visiting places one of the criteria, we look for is how safe is it to travel to that country/place? Visitors are most likely to visit safer places. In the context of international travel, tourists may defer from their visit, if the probability of victimization in that country is high. If this is one of the top checklists that visitors look out for, then the places with high crime rates will receive fewer visitors from abroad.
+
+In this project, we look at the influence of crime rates to the tourism industries throughout the world and in particular Australia, and other criteria which affect them.
 
 \clearpage
 
@@ -213,11 +219,6 @@ As can be seen from the above two figures: figure \@ref(fig:statesoffence) and f
 \clearpage
 
 # Tourism trends around the world - edited by Mayunk Bharadwaj
-
-Having looked at Crime trends around the world and in Australia, let's change tact and now look at Tourism trends. Tourism is critical to the health of the global economy - according to the World Travel and Tourism Council (insert reference later -> https://wttc.org/Research/Economic-Impact), Tourism represents 10.3% of the global GDP and is responsible for creating 1 in 10 jobs around the world.
-
-So, let's dive into specifics. The below analysis will look at two main variables - the number of 'tourists' in thousands of people (measured by tourist arrivals in each country) and global tourist expenditure (that is, the amount of money spent by tourists) measured in millions of U.S. dollars.
-
 ```{r tourism-further-cleaning}
 # further tidying and removal of countries that didn't have figures for both Tourist Arrival and Expenditure in 1995,2005,2010,2016,2017,2018
 
@@ -240,6 +241,10 @@ tourism_clean_world_a <- tourism_clean_world %>%
          Arrivals=`Tourist/visitor arrivals (thousands)`)
 ```
 
+Having looked at Crime trends around the world and in Australia, let's change tact and now look at Tourism trends. Tourism is critical to the health of the global economy - according to @WT12, Tourism represents 10.3% of the global GDP and is responsible for creating 1 in 10 jobs around the world. The data will be using is the UN's 'Tourist/visitor arrivals and tourism expenditure' dataset avaiable on the [UN data webpage](https://data.un.org) (@UN12). The data provides information on Tourism Arrivals (how many tourists arrive in each country) and Tourism Expenditure (the amount of money tourists spend in a country they are visiting). Data was collected in the years 1995, 2005, 2010, 2016, 2017 and 2018. In some instances, a full view of Tourism Arrival and Tourism Expenditure was not available for every single country in all of the years. As such, these countries were removed to preserve the integrity of analysis when comparing global tourism trends from year to year.
+
+So, let's dive into specifics. The below analysis will look at two main variables - the number of 'tourists' in thousands of people (measured by tourist arrivals in each country) and global tourist expenditure (that is, the amount of money spent by tourists) measured in millions of U.S. dollars.
+
 ```{r global-tourism, fig.cap="Global Tourism Trends by Year"}
 tourism_clean_world_b <- tourism_clean_world_a %>%
   group_by(Year) %>%
@@ -248,40 +253,46 @@ tourism_clean_world_b <- tourism_clean_world_a %>%
   rename("Global Tourist Arrivals in thousands of people" = Global_Yearly_Arrivals,
          "Global Tourist Expenditure in millions of U.S. dollars" = Global_Yearly_Expenditure) %>%
   kable(caption="Global Tourism Trends by Year") %>%
-  kable_styling()
+  kable_styling(latex_options = "hold_position")
+
+tourism_clean_world_b
 
 ```
+
+Table \@ref(tab:global-tourism) shows us how Global Tourist Arrivals and their Expenditure has changed over the years. In 1995, there were ~387.30 million tourist arrivals around the globe. By 2018, this number had ballooned to just under a billion people at ~956.96 million tourist arrivals around the globe. This represents a 147% growth rate. Expenditure by these tourists has similarly grown. In 1995, tourists were spending 366,438 million U.S. dollars. By 2018, this number had grown by a whopping 230% to $1,207,846.6 million U.S. dollars. The growth in amount of tourists is outpaced by the growth in amount these tourists are spending!
 
 ```{r growth-figures}
 tourist_growth <- (956957.0-387302.2)/387302.2
 expenditure_growth <- (1207846.6-366438.1)/366438.1
 ```
 
-Table \@ref(tab:global-tourism) shows us how Global Tourist Arrivals and their Expenditure has changed over the years. In 1995, there were ~387.30 million tourist arrivals around the globe. By 2018, this number had ballooned to just under a billion people at ~956.96 million tourist arrivals around the globe. This represents a 147% growth rate. Expenditure by these tourists has similarly grown. In 1995, tourists were spending 366,438 million U.S. dollars. By 2018, this number had grown by a whopping 230% to $1,207,846.6 million U.S. dollars. The growth in amount of tourists is outpaced by the growth in amount these tourists are spending!
-
 ```{r tourist-1995, fig.cap="Top 3 Tourist Destinations in 1995"}
 tourism_clean_world_1995 <- tourism_clean_world_a %>%
   filter(Year==1995) %>%
   arrange(-Arrivals) %>%
-  select(-Expenditure) %>%
+  select(-Expenditure,-Year) %>%
   top_n(3) %>%
   kable(caption="Top 3 Tourist Destinations in 1995") %>%
-  kable_styling()
+  kable_styling(latex_options = "hold_position")
+
+tourism_clean_world_1995
 ```
 
 ```{r tourist-2018, fig.cap="Top 3 Tourist Destinations in 2018"}
 tourism_clean_world_2018 <- tourism_clean_world_a %>%
   filter(Year==2018) %>%
   arrange(-Arrivals) %>%
-  select(-Expenditure) %>%
+  select(-Expenditure,-Year) %>%
   top_n(3)%>%
   kable(caption="Top 3 Tourist Destinations in 2018") %>%
-  kable_styling()
+  kable_styling(latex_options = "hold_position")
+
+tourism_clean_world_2018
 ```
 
-So, where are these tourists actually going?  As we can see in \@ref(tab:tourist-1995), France was the most popular destination with ~60 million tourists visiting, followed by the United States of America and then Spain. By 2018, as evidenced in \@ref(tab:tourist-2018) these three destinations remained the most popular with France still leading the way. Spain had overtaken the U.S., however, as the second most popular destination.
+So, where are these tourists actually going?  As we can see in Table \@ref(tab:tourist-1995), France was the most popular destination with ~60 million tourists visiting, followed by the United States of America and then Spain. By 2018, as evidenced in Table \@ref(tab:tourist-2018) these three destinations remained the most popular with France still leading the way. Spain had overtaken the U.S., however, as the second most popular destination.
 
-```{r expenditure-per-person, fig.cap="Average Expenditure per Tourist in 2018 by Country"}
+```{r expenditure-data}
 
 tourism_clean_world_c <- tourism_clean_world_a %>%
   filter(Year==2018) %>%
@@ -291,7 +302,9 @@ tourism_clean_world_c <- tourism_clean_world_a %>%
   select(Country, Expenditure_per_Person) %>%
   arrange(-Expenditure_per_Person) %>%
   top_n(20)
+```
 
+```{r expenditure-per-person, fig.cap="Average Expenditure per Tourist in 2018 by Country"}
 tourism_clean_world_c %>%
   ggplot(aes(x=reorder(Country,Expenditure_per_Person), y=Expenditure_per_Person)) +
   geom_col() +
@@ -312,7 +325,7 @@ Figure \@ref(fig:expenditure-per-person) shows us the top 20 countries in 2018 i
 #Ankush --> focus on tourism in Australia
 ```
 
-Australia (also known as Australasia), is large country reaching from the tropics to mid-latitudes in the Oceania continent. The Aussie mainland is the world's largest island and the driest continent. It has a land area of 8 million $km^2$ and a population of 25.5 million as of 2020.
+Australia (also known as Australasia), is large country reaching from the tropics to mid-latitudes in the Oceania continent. The Aussie mainland is the world's largest island and the driest continent. It has a land area of 8 million $km^2$ and a population of 25.5 million as of 2020. (@aus)
 
 Australia is world famous for its natural wonders and wide spaces, beaches, deserts, bushes. It is one of the world's most highly urbanised and is known for the attractions of its large cities such as Melbourne, Sydney, Brisbane and Perth. Some of most visited tourist attractions in Australia are: 
 
@@ -340,17 +353,20 @@ knitr::include_graphics(here::here("Images","Map-of-Australia.png"))
 ```
 
 
-\newpage
-
 Table \@ref(tab:austable) shows the number of tourist ('000) and the tourism expenditure (millions of US dollars) is the amount that is spent by tourists.    
 
 ```{r austable}
 australia %>% 
   kableExtra::kable(booktabs = TRUE, caption = "Tourist Arrivals vs Tourism Expenditure in Australia") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"))
+  kable_styling(latex_options = "hold_position")
 ```
 
-Australia's economy benefits significantly from tourism and it contributes to 3.5% of the GDP which is 60.8 billion AUD as of the financial year 2018/19 . On a standardised scale, Figure \@ref(fig:ausbar) is a pictorial representation of the tourist arrivals in and the expenditure contributed by them on their visit to Australia. We can understand, the travel and tourism sector is a major attraction and the results shows the number keep increasing every year. 
+- In the financial year 2018/19, Australia experienced a growth of 3.5% over the previous year and generated $ 60.8 billion in direct tourism Gross Domestic Product (GDP).  (@touraus) 
+- In that, international travellers spent an amount of $44.6 billion, which 5% more than the previous year. (@tour)
+
+On a standardised scale, Figure \@ref(fig:ausbar) is a representation of the tourist arrivals in and the expenditure contributed by them on their visit to Australia. We can understand, the travel and tourism sector is a major attraction and the results shows the number keep increasing every year. 
+
+
 
 ```{r ausbar, fig.cap= "Amount of expenditure by tourists in Australia"}
 Aus_plot <- tourism_clean %>% 
@@ -363,6 +379,7 @@ Aus_plot %>%
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   scale_fill_manual(values=c("red", "yellow")) +
   xlab("Year") + ylab("") +
+  ggtitle("Tourism Expenditure vs Tourist Arrivals in Australia") +
   theme_test()
 ```
 
@@ -387,7 +404,7 @@ tour <- new_aus %>%
 
 ## Tourist Arrivals
 
-Figure \@ref(fig:ausvisitpie) is pie chart showing of the cumulative percentage contribution of the tourist arrivals over the years between 199-2018. 22.36%, was a major part of the tourist arrival contribution came in the year 2018 and the least was 9.01% which came in the year 1995. 
+Figure \@ref(fig:ausvisitpie) is pie chart showing the cumulative percentage contribution of the tourist arrivals over the years between 199-2018. 22.36%, was a major part of the tourist arrival contribution came in the year 2018 and the least was 9.01% which came in the year 1995. 
 
 ```{r ausvisitpie, fig.cap="Percentage of arrivals/visitors in Australia"}
 piepercent <- round(100*tour$Visitors_Freq/sum(tour$Visitors_Freq), 2)
@@ -397,6 +414,17 @@ pie(tour$Visitors_per, labels = piepercent,
     main = "Tourist Arrivals in Australia in different years (%)")
 
 ```
+
+
+**Update**:
+
+- Australia had a record 9.5 million visitors arrivals in 2019. 
+
+- 47% of visitors arrive in Australia for holiday puropose. 
+
+- The median duration of stay in australia is 10 days. (@abs)
+
+\newpage
 
 ## Tourism Expenditure 
 
@@ -412,7 +440,6 @@ pie(tour$Expenditure_per, labels = pieper,
 ```
 
 
-
 \clearpage
 
 # Relationship between Crime and Tourism - edited by Yuheng Cui 
@@ -420,8 +447,6 @@ pie(tour$Expenditure_per, labels = pieper,
 ```{r packages used in this section}
 library(naniar)
 library(broom)
-library(rpart)
-library(rpart.plot)
 ```
 
 In this section we try to find the relationship amongst the safety, number of visitor arrivals, and visitor spending. Figure \@ref(fig:vismiss) specifies the variables having missing values. To make our models available, we only kept the variable having least missing values. Table \@ref(tab:jointables) is the combined table of crime and tourism. There are still some missing values in the table but they are few.
@@ -512,15 +537,21 @@ augment(lm_spending_visitor2, tour_crime) %>%
   xlab("Predicted value") +
   ylab("Residual value")
 ```
+
 Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range below 75000. There were few outliers above 75000.
 
 In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist.
+
+# Conclusion
+
+(Mayunk) Tourism remains an industry vital to the global economy, evidenced by the incredible growth in both number of tourists and the money they spend while on tour. France, Spain and the U.S. have been and still are the most popular tourist destinations. Tourists themselves spend the most money in Australia at over 5000 USD per person.
+(Yuheng) The relationship between crime and tourism does exist. However, crime rate is not dominant explanatory variable in both linear models. Instead, country is the dominant variable in the model of visitor arrival while the visitor arrival is the dominant explanatory variable in the model of visitor spending. Due to the high $R^2$, two linear models may be used for predicting visitor arrival and visitor spending in the future.
 
 
 \clearpage
 
 # Acknowledgments
 The packages used to produce this report are: 
-ggplot2 [@ggplot2]
+ggplot2 [@ggplot2], broom [@broom], naniar [@naniar]
 
 # References
