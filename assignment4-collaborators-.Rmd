@@ -335,7 +335,7 @@ australia <- tourism_clean %>%
 
 ```
 
-```{r echo=FALSE, out.width='80%'}
+```{r echo=FALSE, out.width='100%'}
 knitr::include_graphics(here::here("Images","Map-of-Australia.png"))
 ```
 
@@ -347,10 +347,11 @@ Table \@ref(tab:austable) shows the number of tourist ('000) and the tourism exp
 ```{r austable}
 australia %>% 
   kableExtra::kable(booktabs = TRUE, caption = "Tourist Arrivals vs Tourism Expenditure in Australia") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"))
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                latex_options = "hold_position")
 ```
 
-Australia's economy benefits significantly from tourism and it contributes to 3.5% of the GDP which is 60.8 billion AUD as of the financial year 2018/19 . On a standardised scale, Figure \@ref(fig:ausbar) is a pictorial representation of the tourist arrivals in and the expenditure contributed by them on their visit to Australia. We can understand, the travel and tourism sector is a major attraction and the results shows the number keep increasing every year. 
+Australia's economy benefits significantly from tourism and it contributes to 3.5% of the GDP which is $60.8 billion as of the financial year 2018/19 . On a standardised scale, Figure \@ref(fig:ausbar) is a pictorial representation of the tourist arrivals in and the expenditure contributed by them on their visit to Australia. We can understand, the travel and tourism sector is a major attraction and the results shows the number keep increasing every year. 
 
 ```{r ausbar, fig.cap= "Amount of expenditure by tourists in Australia"}
 Aus_plot <- tourism_clean %>% 
@@ -363,6 +364,7 @@ Aus_plot %>%
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   scale_fill_manual(values=c("red", "yellow")) +
   xlab("Year") + ylab("") +
+  ggtitle("Tourism Expenditure vs Tourist Arrivals in Australia") +
   theme_test()
 ```
 
@@ -387,7 +389,7 @@ tour <- new_aus %>%
 
 ## Tourist Arrivals
 
-Figure \@ref(fig:ausvisitpie) is pie chart showing of the cumulative percentage contribution of the tourist arrivals over the years between 199-2018. 22.36%, was a major part of the tourist arrival contribution came in the year 2018 and the least was 9.01% which came in the year 1995. 
+Figure \@ref(fig:ausvisitpie) is pie chart showing the cumulative percentage contribution of the tourist arrivals over the years between 199-2018. 22.36%, was a major part of the tourist arrival contribution came in the year 2018 and the least was 9.01% which came in the year 1995. 
 
 ```{r ausvisitpie, fig.cap="Percentage of arrivals/visitors in Australia"}
 piepercent <- round(100*tour$Visitors_Freq/sum(tour$Visitors_Freq), 2)
@@ -397,6 +399,10 @@ pie(tour$Visitors_per, labels = piepercent,
     main = "Tourist Arrivals in Australia in different years (%)")
 
 ```
+
+**Update**:
+- Australia had a record 9.5 million visitors arrivals in 2019. 
+- 47% of visitors arrive in Australia for holiday puropose. 
 
 ## Tourism Expenditure 
 
@@ -410,7 +416,6 @@ pie(tour$Expenditure_per, labels = pieper,
              main = "Expenditure of Tourist in Australia in different years (%)")
 
 ```
-
 
 
 \clearpage
