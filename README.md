@@ -18,20 +18,3 @@ Methodology
 Data
 Analysis
 Conclusion
-
-
-
-PRESENTATION
-
-Intro by Varsha
-
-Varsha --> Git: Usage of Atom for commits
-           Markdown: in-line coding issues
-Yawen --> Git: Using Git Kraken
-       Markdown: Referencing (importance of adding captions)
-Mayunk --> Git: GitHub - Issues tab
-        Markdown: Resolving knitting Issues
-Ankush --> Git: 'Git Stash'
-        Markdown: Including images in R chunk
-Yuheng --> Git: 'Merging Issues/Editing R Project file'
-        Markdown: References don't work unless you set output as 'bookdown'
