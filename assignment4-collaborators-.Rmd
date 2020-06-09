@@ -49,7 +49,7 @@ library(png)
 
 # Intro
 
-Tourism is one of the fastest growing industries internationally and it is the primary contributor to the economies of most countries in the world. The tourism industry helps raise the employment rate and income levels and hence why it is one of the most important industries in almost every nation globally. Tourism is a vital earner of foreign exchange that is needed to pay for imports, maintain exchange rates. According to World tourism Organisation, tourism generates 6% of the total worldwide exports, and about 10% of all employment. 
+Tourism is one of the fastest growing industries internationally and it is the primary contributor to the economies of most countries in the world. The tourism industry helps raise the employment rate and income levels and hence why it is one of the most important industries in almost every nation globally. Tourism is a vital earner of foreign exchange that is needed to pay for imports, maintain exchange rates. According to World Tourism Organisation, tourism generates 6% of the total worldwide exports, and about 10% of all employment. 
 
 However, when we as tourists think about visiting places one of the criteria, we look for is how safe is it to travel to that country/place? Visitors are most likely to visit safer places. In the context of international travel, tourists may defer from their visit, if the probability of victimization in that country is high. If this is one of the top checklists that visitors look out for, then the places with high crime rates will receive fewer visitors from abroad.
 
@@ -523,12 +523,15 @@ augment(lm_spending_visitor2, tour_crime) %>%
   xlab("Predicted value") +
   ylab("Residual value")
 ```
+
 Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range below 75000. There were few outliers above 75000.
+
+In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist.
 
 # Conclusion
 
 
-(Yuheng) In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist.
+(Yuheng) The relationship between crime and tourism does exist. However, crime rate is not dominant explanatory variable in both linear models. Instead, country is the dominant variable in the model of visitor arrival while the visitor arrival is the dominant explanatory variable in the model of visitor spending. Due to the high $R^2$, two linear models may be used for predicting visitor arrival and visitor spending in the future.
 
 
 \clearpage
