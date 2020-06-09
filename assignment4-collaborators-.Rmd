@@ -312,7 +312,7 @@ Figure \@ref(fig:expenditure-per-person) shows us the top 20 countries in 2018 i
 #Ankush --> focus on tourism in Australia
 ```
 
-Australia (also known as Australasia), is large country reaching from the tropics to mid-latitudes in the Oceania continent. The Aussie mainland is the world's largest island and the driest continent. It has a land area of 8 million $km^2$ and a population of 25.5 million as of 2020.
+Australia (also known as Australasia), is large country reaching from the tropics to mid-latitudes in the Oceania continent. The Aussie mainland is the world's largest island and the driest continent. It has a land area of 8 million $km^2$ and a population of 25.5 million as of 2020. (@aus)
 
 Australia is world famous for its natural wonders and wide spaces, beaches, deserts, bushes. It is one of the world's most highly urbanised and is known for the attractions of its large cities such as Melbourne, Sydney, Brisbane and Perth. Some of most visited tourist attractions in Australia are: 
 
@@ -351,7 +351,11 @@ australia %>%
                 latex_options = "hold_position")
 ```
 
-Australia's economy benefits significantly from tourism and it contributes to 3.5% of the GDP which is $60.8 billion as of the financial year 2018/19 . On a standardised scale, Figure \@ref(fig:ausbar) is a pictorial representation of the tourist arrivals in and the expenditure contributed by them on their visit to Australia. We can understand, the travel and tourism sector is a major attraction and the results shows the number keep increasing every year. 
+- In the financial year 2018/19, Australia experienced a growth of 3.5% over the previous year and generated $ 60.8 billion in direct tourism Gross Domestic Product (GDP).  (@touraus) 
+- In that, international travellers spent an amount of $44.6 billion, which 5% more than the previous year.
+(@tour)
+
+On a standardised scale, Figure \@ref(fig:ausbar) is a pictorial representation of the tourist arrivals in and the expenditure contributed by them on their visit to Australia. We can understand, the travel and tourism sector is a major attraction and the results shows the number keep increasing every year. 
 
 ```{r ausbar, fig.cap= "Amount of expenditure by tourists in Australia"}
 Aus_plot <- tourism_clean %>% 
@@ -403,6 +407,8 @@ pie(tour$Visitors_per, labels = piepercent,
 **Update**:
 - Australia had a record 9.5 million visitors arrivals in 2019. 
 - 47% of visitors arrive in Australia for holiday puropose. 
+- The median duration of stay in australia is 10 days. (@abs)
+
 
 ## Tourism Expenditure 
 
