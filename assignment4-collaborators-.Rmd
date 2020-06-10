@@ -563,6 +563,8 @@ In sum, the linear models above are good models and may be used to respectively 
 
 (Mayunk) Tourism remains an industry vital to the global economy, evidenced by the incredible growth in both number of tourists and the money they spend while on tour. France, Spain and the U.S. have been and still are the most popular tourist destinations. Tourists themselves spend the most money in Australia at over 5000 USD per person.
 
+(Ankush) Tourism provides a source of income to the economy of Australia and is a major employer of Australians as it helps in generating jobs, investment and growth in communities. With the tourist arrivals and tourism expenditure growing on a yearly basis, a large number of regions in Australia are benefitted as they rely significantly on tourism as their economic base. 
+
 (Yuheng) The relationship between crime and tourism does exist. However, country and visitor arrival are the dominant explanatory variables in two models, respectively. We may deduce that holding crime rate and year constant, some countries could attract more tourists than other countries. This is logical because some countries have more landmarks than other countries. In additional, due to the high $R^2$ values, two linear models may be used for predicting visitor arrival and visitor spending in the future.
 
 
