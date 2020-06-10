@@ -518,6 +518,7 @@ bind_rows(model1 = glance(lm_spending_visitor1)[c(1:2)],
 \clearpage
 
 ```{r lmspendingplot, fig.cap = "Predicted value and Residual value (the model of visitor spending)"}
+# This is a plot
 augment(lm_spending_visitor2, tour_crime) %>%  
   ggplot(aes(x = .fitted, 
              y = .resid)) +
@@ -527,10 +528,12 @@ augment(lm_spending_visitor2, tour_crime) %>%
 ```
 Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range below 75000. There were few outliers above 75000.
 
+In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist. 
+
 # Conclusion
 (Varsha) In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the world map we could see that many countries have a high rate of crimes. In which the most commonly committed crime is Robbery at the national level,rate per 100,000 population and the country being Canada.
 
-
+(Mayunk) Tourism remains an industry vital to the global economy, evidenced by the incredible growth in both number of tourists and the money they spend while on tour. France, Spain and the U.S. have been and still are the most popular tourist destinations. Tourists themselves spend the most money in Australia at over 5000 USD per person.
 
 (Yuheng) In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist.
 
@@ -539,6 +542,6 @@ Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range 
 
 # Acknowledgments
 The packages used to produce this report are: 
-ggplot2 [@ggplot2]
+ggplot2 [@ggplot2], broom [@broom], naniar [@naniar]
 
 # References
