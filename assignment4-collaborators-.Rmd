@@ -51,7 +51,7 @@ library(png)
 
 Tourism is one of the fastest growing industries internationally and it is the primary contributor to the economies of most countries in the world. The tourism industry helps raise the employment rate and income levels and hence why it is one of the most important industries in almost every nation globally. Tourism is a vital earner of foreign exchange that is needed to pay for imports, maintain exchange rates. According to World tourism Organisation, tourism generates 6% of the total worldwide exports, and about 10% of all employment. 
 
-However, when we as tourists think about visiting places one of the criteria, we look for is how safe is it to travel to that country/place? Visitors are most likely to visit safer places. In the context of international travel, tourists may defer from their visit, if the probability of victimization in that country is high. If this is one of the top checklists that visitors look out for, then the places with high crime rates will receive fewer visitors from abroad.
+However, when we as tourists think about visiting places one of the criteria, we look for is how safe is it to travel to that country/place? Visitors are most likely to visit safer places. In the context of international travel, tourists may defer from their visit, if the probability of victimization in that country is high. If this is one of the top checklists that visitors look out for, then the places with high crime rates will receive fewer visitors from abroad.referred: @2014crime
 
 In this project, we look at the influence of crime rates to the tourism industries throughout the world and in particular Australia, and other criteria which affect them.
 
@@ -148,7 +148,7 @@ Research question within this section:
 
 - The crime rates throughout the world, which type of crime has more mean counts and which country has this identified crime?
 
---> Going through the entire dataset and the throughout the years, it can be concluded that the crime rates have surely decreased with time , even though there were some years in between which had even less crime rates, but the year 2010 has the highest rates of crimes in the entire world. Looking at the world map figure : \@ref(fig:worldmapdata) we can see that the most crime is by Robbery at the national level,rate per 100,000 population followed by intentional homicide rates per 100.000 in blue and brown respectively. It also depicts the percentage of male and female intentional homicide victims, out of which it can be inferred that the females are mostly the victims of homicides at large throughout the world and the country with most number of Robbery at the national level,rate per 100,000 population  is Canada.
+--> Going through the entire dataset and the throughout the years, it can be concluded that the crime rates have surely decreased with time , even though there were some years in between which had even less crime rates, but the year 2010 has the highest rates of crimes in the entire world. Looking at the world map figure : \@ref(fig:worldmapdata) we can see that the most committed crime is by Robbery at the national level,rate per 100,000 population followed by intentional homicide rates per 100.000 in blue and brown respectively. It also depicts the percentage of male and female intentional homicide victims, out of which it can be inferred that the females are mostly the victims of homicides at large throughout the world and the country with most number of Robbery at the national level,rate per 100,000 population  is Canada.
 
 \clearpage
 
@@ -528,6 +528,8 @@ augment(lm_spending_visitor2, tour_crime) %>%
 Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range below 75000. There were few outliers above 75000.
 
 # Conclusion
+(Varsha) In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the world map we could see that many countries have a high rate of crimes. In which the most commonly committed crime is Robbery at the national level,rate per 100,000 population and the country being Canada.
+
 
 
 (Yuheng) In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist.
