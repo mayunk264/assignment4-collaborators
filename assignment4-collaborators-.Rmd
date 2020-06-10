@@ -366,7 +366,7 @@ australia %>%
 
 Australia's economy benefits significantly from tourism and it contributes to 3.5% of the GDP which is 60.8 billion AUD as of the financial year 2018/19 . On a standardised scale, Figure \@ref(fig:ausbar) is a pictorial representation of the tourist arrivals in and the expenditure contributed by them on their visit to Australia. We can understand, the travel and tourism sector is a major attraction and the results shows the number keep increasing every year. 
 
-```{r ausbar, fig.cap= "Amount of expenditure by tourists in Australia"}
+```{r ausbar, fig.cap= "Bar plot of expenditure and arrivals by tourists in Australia"}
 Aus_plot <- tourism_clean %>% 
   dplyr::filter(Country == "Australia") %>% 
   select(Country, Series, Year, Value) %>%
@@ -380,7 +380,20 @@ Aus_plot %>%
   theme_test()
 ```
 
-\newpage
+In Figure \@ref(fig:boxplot) , the cross mark indicated the average (mean) value of the respective series. We observe the following:
+
+- The average tourism expenditure ranges between 30,000 - 35,000 USD (millions). 
+- The average tourist arrivals ranges bewteen 5,000 - 8,000 (thousands). 
+
+```{r boxplot, fig.cap="Boxplot of tourism expenditure and tourist arrivals in Australia"}
+Aus_plot %>% 
+  ggplot(aes(x = Series, y = Value)) +
+  geom_boxplot(col=c("red","blue")) +
+  stat_summary(fun.y=mean, geom="point", shape=4, size=8, color="black") +
+  xlab("Series") + ylab("") +
+  ggtitle("Average Tourism Expenditure and Tourist Arrivals in Australia") +
+  theme_grey(base_size = 12)
+```
 
 ```{r rename-columns}
 new_aus <- australia %>% 
@@ -399,6 +412,21 @@ tour <- new_aus %>%
 
 ```
 
+## Tourism Expenditure 
+
+Figure \@ref(fig:ausexpenpie) is a pie chart comprising of the cumulative expenditure by tourist on their visit to Australia during the respective years. 24.71%, was the highest expenditure contribution by tourist which took place in the year 2018 and 5.41% was the least contribution by tourist in the year 1995. 
+
+```{r ausexpenpie, fig.cap="Percentage of expenditure by tourist"}
+pieper <- round(100*tour$Expenditure_Freq/sum(tour$Expenditure_Freq), 2)
+
+pie(tour$Expenditure_per, labels = pieper,
+             col = topo.colors(length(tour$Year)),
+             main = "Expenditure of Tourist in Australia in different years (%)")
+
+```
+
+\newpage 
+
 ## Tourist Arrivals
 
 Figure \@ref(fig:ausvisitpie) is pie chart showing of the cumulative percentage contribution of the tourist arrivals over the years between 199-2018. 22.36%, was a major part of the tourist arrival contribution came in the year 2018 and the least was 9.01% which came in the year 1995. 
@@ -412,18 +440,6 @@ pie(tour$Visitors_per, labels = piepercent,
 
 ```
 
-## Tourism Expenditure 
-
-Figure \@ref(fig:ausexpenpie) is a pie chart comprising of the cumulative expenditure by tourist on their visit to Australia during the respective years. 24.71%, was the highest expenditure contribution by tourist which took place in the year 2018 and 5.41% was the least contribution by tourist in the year 1995. 
-
-```{r ausexpenpie, fig.cap="Percentage of expenditure by tourist"}
-pieper <- round(100*tour$Expenditure_Freq/sum(tour$Expenditure_Freq), 2)
-
-pie(tour$Expenditure_per, labels = pieper,
-             col = topo.colors(length(tour$Year)),
-             main = "Expenditure of Tourist in Australia in different years (%)")
-
-```
 
 
 
