@@ -235,10 +235,10 @@
     },
     "ggplot2": {
       "Package": "ggplot2",
-      "Version": "3.3.0",
+      "Version": "3.3.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "911561e07da928345f1ae2d69f97f3ea"
+      "Hash": "dd6dc5b9ef202cef18c5200d76e1634c"
     },
     "ggthemes": {
       "Package": "ggthemes",
@@ -464,13 +464,6 @@
       "Repository": "CRAN",
       "Hash": "01f28d4278f15c76cddbea05899c5d6f"
     },
-    "pkgload": {
-      "Package": "pkgload",
-      "Version": "1.0.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "5e655fb54cceead0f095f22d7be33da3"
-    },
     "plyr": {
       "Package": "plyr",
       "Version": "1.8.6",
@@ -582,20 +575,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "9d1c61d476c448350c482d6664e1b28b"
-    },
-    "rpart": {
-      "Package": "rpart",
-      "Version": "4.1-15",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "9787c1fcb680e655d062e7611cadf78e"
-    },
-    "rpart.plot": {
-      "Package": "rpart.plot",
-      "Version": "3.0.8",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "2875d540fb4b5ef80dc1b5a796d488ec"
     },
     "rprojroot": {
       "Package": "rprojroot",

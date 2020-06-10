@@ -461,11 +461,9 @@ pie(tour$Visitors_per, labels = piepercent,
 ```{r packages used in this section}
 library(naniar)
 library(broom)
-library(rpart)
-library(rpart.plot)
 ```
 
-In this section we try to find the relationship amongst the safety, number of visitor arrivals, and visitor spending. Figure \@ref(fig:vismiss) specifies the variables having missing values. To make our models available, we only kept the variable having least missing values. Table \@ref(tab:jointables) is the combined table of crime and tourism. There are still some missing values in the table but they are few.
+In this section we try to find the relationship between tourism and crime. For tourism, the number of visitor arrivals and visitor spending are two important indicators, therefore, we built two models for both of the indicators, respectively. Before creating models, we must remove the variables with too many missing values. Figure \@ref(fig:vismiss) specifies the missing values in crime data set. We only kept Intentional homicide rates per 100,000 and removed other variables. Table \@ref(tab:jointables) is table combined with crime and tourism. The missing values still existed, but they are few.
 
 ```{r vismiss, fig.cap = "missing value in crime data set"}
 crime_clean_wide <- crime_clean %>%
@@ -500,7 +498,7 @@ tour_crime %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
-We created two linear models of visitor arrivals: one model used country as one of the explanatory variables while the other did not. In Table \@ref(tab:lmvisitor), we can see much higher $R^2$ of the model with country, which had $R^2$ of 97.5%. That is, 97.5% of the variation of the explanatory variables can be explained by the model. In sum, country had the absolute influence. That is, holding crime rate and year constant, some countries were more attractive to tourists. This is true, because some countries have more landmarks and viewpoints than other countries.
+We created two linear models for visitor arrivals. They are similar, except Model 2 used country as additional explanatory variable while Model 1 did not. In Table \@ref(tab:lmvisitor), Model 2 had much higher $R^2$ than Model 1. 97.5% of the variation of the explanatory variables can be explained by Model 2 for visitor arrivals. In sum, country was a dominant explanatory variable in the model. 
 
 ```{r lmvisitor}
 lm_tour_crime_1 <- lm(visitor_thousands~year +intentional_homicide_rates_per_100_000, data = tour_crime)
@@ -528,7 +526,7 @@ augment(lm_tour_crime_2, data = tour_crime) %>%
 
 \clearpage
 
-Next, we built a linear model of visitor spending. Three models all used country and year as explanatory variables. However, in model 1, we used intentional homicide rates as additional explanatory variables; in model 2, we used visitor arrivals as additional explanatory variables; in model 3, we used both intentional homicide rates and visitor arrivals. Table \@ref(tab:lmspendingvisitor) shows three models were all good but model 3 was the best. There were 96.54% of variations in explanatory variables could be explained by model 2. In sum, the number of visitor arrivals had bigger influence than crime rate on the fitness of the model. That is, holding crime rate and year constant, some countries were more attractive to tourists.
+Next, we built three linear models for visitor spending. Three models all used country and year as explanatory variables. However, in Model 1, we used intentional homicide rates as additional explanatory variable; in Model 2, we used visitor arrivals as additional explanatory variable; in Model 3, we used both intentional homicide rates and visitor arrivals. Table \@ref(tab:lmspendingvisitor) shows Model 3 had the highest $R^2$ value. There were 96.54% of variations in explanatory variables could be explained by model 2. In sum, the number of visitor arrivals had bigger influence than crime rate on the fitness of the model. That is, holding crime rate and year constant, some countries were more attractive to tourists.
 
 ```{r lmspendingvisitor}
 lm_spending_visitor1 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 +country + year, data = tour_crime)
@@ -565,10 +563,9 @@ In sum, the linear models above are good models and may be used to respectively 
 
 (Mayunk) Tourism remains an industry vital to the global economy, evidenced by the incredible growth in both number of tourists and the money they spend while on tour. France, Spain and the U.S. have been and still are the most popular tourist destinations. Tourists themselves spend the most money in Australia at over 5000 USD per person.
 
-(Yuheng) The relationship between crime and tourism does exist. However, crime rate is not dominant explanatory variable in both linear models. Instead, country is the dominant variable in the model of visitor arrival while the visitor arrival is the dominant explanatory variable in the model of visitor spending. Due to the high $R^2$, two linear models may be used for predicting visitor arrival and visitor spending in the future.
+(Yuheng) The relationship between crime and tourism does exist. However, crime rate is not dominant explanatory variable in both linear models (models of visitor arrivals and visitor spending). Instead, country is the dominant variable in the model of visitor arrival while the visitor arrival is the dominant explanatory variable in the model of visitor spending. We may deduce that holding crime rate and year constant, some countries could attract more tourists than other countries. This is logical because some countries have more landmarks and viewpoints than other countries. In additional, due to the high $R^2$ values, two linear models may be used for predicting visitor arrival and visitor spending in the future. 
 
 
-\clearpage
 
 # Acknowledgments
 The packages used to produce this report are: 
