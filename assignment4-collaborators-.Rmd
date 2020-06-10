@@ -516,6 +516,7 @@ bind_rows(model1 = glance(lm_spending_visitor1)[c(1:2)],
 \clearpage
 
 ```{r lmspendingplot, fig.cap = "Predicted value and Residual value (the model of visitor spending)"}
+# This is a plot
 augment(lm_spending_visitor2, tour_crime) %>%  
   ggplot(aes(x = .fitted, 
              y = .resid)) +
@@ -526,7 +527,7 @@ augment(lm_spending_visitor2, tour_crime) %>%
 
 Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range below 75000. There were few outliers above 75000.
 
-In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist.
+In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist. 
 
 # Conclusion
 
