@@ -380,7 +380,7 @@ Aus_plot %>%
 
 In Figure \@ref(fig:boxplot) , the cross mark indicated the average (mean) value of the respective series. We observe the following:
 
-- The average tourism expenditure ranges between 30,000 - 35,000 USD (millions) 
+- The average tourism expenditure ranges between 30,000 - 35,000 USD (millions). 
 - The average tourist arrivals ranges bewteen 5,000 - 8,000 (thousands). 
 
 ```{r boxplot, fig.cap="Boxplot of tourism expenditure and tourist arrivals in Australia"}
