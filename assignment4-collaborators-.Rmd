@@ -308,14 +308,10 @@ Figure \@ref(fig:expenditure-per-person) shows us the top 20 countries in 2018 i
 
 \clearpage
 
-# Tourism in Australia - edited by Ankush Vemagal
-
+# Tourism in Australia
 **The following section was compiled and edited by Ankush Vemagal**
 
-```{r}
-
-#Ankush --> focus on tourism in Australia
-```
+Now let's look at Tourism trends in Australia. The following analysis was conducted with the use of the same dataset as the previous section - the UN's 'Tourist/visitor arrivals and tourism expenditure' dataset
 
 Australia (also known as Australasia), is large country reaching from the tropics to mid-latitudes in the Oceania continent. The Aussie mainland is the world's largest island and the driest continent. It has a land area of 8 million $km^2$ and a population of 25.5 million as of 2020.
 
@@ -346,7 +342,7 @@ knitr::include_graphics(here::here("Images","Map-of-Australia.png"))
 
 \newpage
 
-Table \@ref(tab:austable) shows the number of tourist ('000) and the tourism expenditure (millions of US dollars) is the amount that is spent by tourists.    
+Table \@ref(tab:austable) shows the number of tourists ('000) and the tourism expenditure (millions of US dollars) - that is the amount that is spent by tourists.    
 
 ```{r austable}
 australia %>% 
@@ -408,7 +404,6 @@ tour <- new_aus %>%
 
 ```
 
-## Tourism Expenditure 
 
 Figure \@ref(fig:ausexpenpie) is a pie chart comprising of the cumulative expenditure by tourist on their visit to Australia during the respective years. 24.71%, was the highest expenditure contribution by tourist which took place in the year 2018 and 5.41% was the least contribution by tourist in the year 1995. 
 
@@ -422,8 +417,6 @@ pie(tour$Expenditure_per, labels = pieper,
 ```
 
 \newpage 
-
-## Tourist Arrivals
 
 Figure \@ref(fig:ausvisitpie) is pie chart showing the cumulative percentage contribution of the tourist arrivals over the years between 199-2018. 22.36%, was a major part of the tourist arrival contribution came in the year 2018 and the least was 9.01% which came in the year 1995. 
 
