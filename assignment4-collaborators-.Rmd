@@ -97,7 +97,7 @@ This section covers what kind of crimes are at large in different parts of the w
 The plot \@ref(fig:crimerates) depicts a column graph with year on the x-axis and counts on the y-axis, where the the years in the dataset vary from 2000 through to year 2016. Looking at this plot it can be inferred that the rate of crimes in the year 2010 was the highest with a count of more than 750 mean cases throughout the world. Followed by approximate values in 2005, 2015 and 2016 with mean counts of 760, 600 and 500. It also illustrates that with the years the crime rates have been fluctuating rapidly but also with time the crime mean counts have decreased.
 
 ```{r crimerates, fig.pos="H", fig.cap= "Mean crime rates throughout the years"}
-crime_rate <- crime_world %>% group_by(Year,Crimes,region) %>% 
+crime_rate <- crime_world %>% filter(Year %in% c("2005","2010","2015","2016")) %>% group_by(Year,Crimes,region) %>% 
    count(Crimes)
 ggplot(crime_rate,
        aes(x = Year,
@@ -107,10 +107,16 @@ ggplot(crime_rate,
 ```
 
 ```{r highestcrime, eval=FALSE}
-crime_world %>%  
-  select(Year,Crimes,Value,region) %>%  
-  group_by(region,Crimes) %>%  mutate(maxval = max(Value)) %>% 
-  pivot_wider(names_from = "Crimes", values_from = "Value") %>% arrange(desc(`maxval`))
+data <- crime_world %>%  
+  select(Year,Crimes,Value,region) %>%  filter(Year %in% c("2005","2010","2015","2016")) %>%
+  group_by(region) %>% pivot_wider(names_from = "Crimes", values_from = "Value") 
+#ggplot(aes(x = region)) + geom_histogram(stat = "count") 
+```
+
+
+```{r}
+pq <- data %>%  select(Year,`Intentional homicide rates per 100,000`,region) %>% filter(Year == "2010") %>% group_by(region,Year)  %>%  arrange(`Intentional homicide rates per 100,000`) %>%  top_n(7)
+#ggplot(pq, aes(x = region))
 ```
 
 
@@ -127,16 +133,21 @@ The library maps is a very useful package in the CRAN which helps us R-users vis
 
 ```{r worldmapdata, fig.height= 9 ,fig.pos="H", fig.width=9, fig.cap="World map depicting the crimes within each country"}
 library(viridis)
+library(ggmap)
 crime_world_map <- crimemap %>% filter(Year %in% c(2005,2010,2015,2016))
-ggplot(crime_world_map, 
+p <- ggplot(crime_world_map, 
        aes(x = long, 
            y = lat, 
-           group = group,
-           fill = Crimes)) +
-  geom_polygon(colour = "grey90") + theme_classic()+
+           group = group
+           ),fill = Crimes) +
+  geom_polygon(color = "grey90")+theme_classic()+
   #scale_fill_viridis_c(guide = "legend") + 
-  scale_x_continuous() +scale_y_continuous() + theme(legend.position = "bottom") 
+  scale_x_continuous() +scale_y_continuous() 
+#plotly::ggplotly(p)
+p
 ```
+
+
 
 Research question within this section: 
 
