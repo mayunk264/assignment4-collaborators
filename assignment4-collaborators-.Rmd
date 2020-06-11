@@ -323,6 +323,8 @@ Australia is world famous for its natural wonders and wide spaces, beaches, dese
 - Kangaroo Island, South Australia
 
 ```{r}
+#filtering and wrangling data to australia 
+
 australia <- tourism_clean %>% 
   dplyr::filter(Country == "Australia") %>% 
   select(Country, Series, Year, Value) %>%
@@ -336,6 +338,7 @@ australia <- tourism_clean %>%
 ```
 
 ```{r echo=FALSE, out.width='80%'}
+#including an external image 
 knitr::include_graphics(here::here("Images","Map-of-Australia.png"))
 ```
 
@@ -363,7 +366,7 @@ Aus_plot <- tourism_clean %>%
 Aus_plot %>% 
   ggplot(aes(x=Year,y=Value, fill = Series)) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
-  scale_fill_manual(values=c("red", "yellow")) +
+  #scale_fill_manual(values=c("red", "yellow")) +
   xlab("Year") + ylab("") +
   theme_test()
 ```
@@ -376,10 +379,10 @@ In Figure \@ref(fig:boxplot) , the cross mark indicated the average (mean) value
 - The average tourism expenditure ranges between 30,000 - 35,000 USD (millions). 
 - The average tourist arrivals ranges between 5,000 - 8,000 (thousands). 
 
-```{r boxplot, fig.cap="Boxplot of tourism expenditure and tourist arrivals in Australia"}
+```{r boxplot, fig.width=10, fig.cap="Boxplot of tourism expenditure and tourist arrivals in Australia"}
 Aus_plot %>% 
-  ggplot(aes(x = Series, y = Value)) +
-  geom_boxplot(col=c("red","blue")) +
+  ggplot(aes(x = Series, y = Value, col = Series)) +
+  geom_boxplot() +
   stat_summary(fun.y=mean, geom="point", shape=4, size=8, color="black") +
   xlab("Series") + ylab("") +
   ggtitle("Average Tourism Expenditure and Tourist Arrivals in Australia") +
@@ -403,6 +406,7 @@ tour <- new_aus %>%
 
 ```
 
+**Tourism Expenditure**
 
 Figure \@ref(fig:ausexpenpie) is a pie chart comprising of the cumulative expenditure by tourist on their visit to Australia during the respective years. 24.71%, was the highest expenditure contribution by tourist which took place in the year 2018 and 5.41% was the least contribution by tourist in the year 1995. 
 
@@ -413,9 +417,14 @@ pie(tour$Expenditure_per, labels = pieper,
              col = topo.colors(length(tour$Year)),
              main = "Expenditure of Tourist in Australia in different years (%)")
 
+legend("right", c("1995","2005","2010","2016","2017","2018"), cex = 0.8,
+   fill = topo.colors(length(tour$Year)))
+
 ```
 
-\newpage 
+\newpage
+
+**Tourist/Visitor Arrivals**
 
 Figure \@ref(fig:ausvisitpie) is pie chart showing the cumulative percentage contribution of the tourist arrivals over the years between 199-2018. 22.36%, was a major part of the tourist arrival contribution came in the year 2018 and the least was 9.01% which came in the year 1995. 
 
@@ -425,6 +434,9 @@ piepercent <- round(100*tour$Visitors_Freq/sum(tour$Visitors_Freq), 2)
 pie(tour$Visitors_per, labels = piepercent,
     col = rainbow(length(tour$Year)),
     main = "Tourist Arrivals in Australia in different years (%)")
+
+legend("right", c("1995","2005","2010","2016","2017","2018"), cex = 0.8,
+   fill = rainbow(length(tour$Year)))
 
 ```
 
@@ -538,6 +550,8 @@ Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range 
 
 In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist. 
 
+\clearpage
+
 # Conclusion
 (Varsha) In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the tables we were able to find that El Salvador was considered to be the most dangerous country in the world both in the years of 2005 and 2016 even though there was a huge gap between the two years for improvement.
 
@@ -560,4 +574,3 @@ ggplot2 [@ggplot2], broom [@broom], naniar [@naniar], readxl[@readxl], ggthemes[
 
 We use renv [@renv] to ensure the report is reproducible.
 \clearpage
-# References
