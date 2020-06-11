@@ -49,6 +49,8 @@ library(readxl)
 library(ggthemes)
 ```
 
+\clearpage
+
 # Introduction
 
 Tourism is critical to the health of the global economy - according to @WT12, tourism represents 10.3% of the global GDP and is responsible for creating 1 in 10 jobs around the world. Therefore, it is fair to say that tourism is one of the most important industries in almost every nation globally.
