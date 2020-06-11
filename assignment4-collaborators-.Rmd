@@ -53,7 +53,7 @@ library(ggthemes)
 
 Tourism is critical to the health of the global economy - according to @WT12, Tourism represents 10.3% of the global GDP and is responsible for creating 1 in 10 jobs around the world. Therefore, it is fair to say that tourism is one of the most important industries in almost every nation globally.
 
-However, when we as tourists think about visiting places, one of the criteria that we look for is how safe is it to travel to that place? Common sense tells us that visitors are most likely to visit safer places. In the context of international travel, tourists may defer from their visit, if the probability of victimization in that country is high. If this is one of the top items on a visitor's checklist, then it stands that the places with high crime rates should receive fewer visitors from abroad (@2014crime).
+However, when we as tourists think about visiting places, one of the criteria that we look for is how safe is it to travel to that place? Common sense tells us that visitors are most likely to visit safer places. In the context of international travel, tourists may defer from their visit, if the probability of victimization in that country is high. If this is one of the top items on a visitor's checklist, then it stands that the places with high crime rates should receive fewer visitors from abroad [@2014crime].
 
 In this investigative report, we will take a deep dive into crime and tourism trends globally and in Australia, after which we will attempt to establish whether there is a relationship between crime rates and tourism.
 
@@ -86,9 +86,9 @@ names(crime_world)[6] <- "Source"
 crime_world <- crime_world %>%  arrange(region, Year)
 ```
 
-In this section, we are looking at the crime rate throughout the world and the mean values of each of the eight crimes as in Table \@ref(tab:distinct-crimes) in each of the 231 different regions reported in the source data. This dataset used is titled 'Intentional homicides and other crimes' and is sourced from the [UN data webpage](https://data.un.org) (@UN13). Although this data is from a reputable source, a potential limitation of the data is that the actual crime rate within each country may be faulty due to fear of constitutional laws within the country or corruption.
+In this section, we are looking at the crime rate throughout the world and the mean values of each of the eight crimes as in Table \@ref(tab:distinctcrimes) in each of the 231 different regions reported in the source data. This dataset used is titled 'Intentional homicides and other crimes' and is sourced from the [UN data webpage]<https://data.un.org> [@UN13]. Although this data is from a reputable source, a potential limitation of the data is that the actual crime rate within each country may be faulty due to fear of constitutional laws within the country or corruption.
 
-```{r distinct-crimes}
+```{r distinctcrimes}
 unique(crime_world$Crimes) %>% kable(caption = "Different crimes recorded") %>%  kable_styling(bootstrap_options = c("Striped","hover"),latex_options = "hold_position")
 ```
 
@@ -122,7 +122,7 @@ crimemap <- merge(world_map,crime_world, by = "region")
   #pivot_wider(names_from = "Crimes", values_from = "Value")
 ```
 
-The library maps is a very useful package in the CRAN which helps us R-users visualize the world analysis better (@maps) . Using this maps package for drawing geographical maps ,we can depict the different types of crimes in different countries over the years, the legend on the side depicts the crimes which are most commonly known for. 
+The library maps is a very useful package in the CRAN which helps us R-users visualize the world analysis better [@maps]. Using this maps package for drawing geographical maps ,we can depict the different types of crimes in different countries over the years, the legend on the side depicts the crimes which are most commonly known for. 
 
 
 ```{r worldmapdata, fig.height= 9 ,fig.pos="H", fig.width=9, fig.cap="World map depicting the crimes within each country"}
@@ -149,7 +149,7 @@ Research question within this section:
 # Crime Trends in Australia
 **The following section was compiled and edited by Yawen Zhang.**
 
-In this section, we will focus our analysis on crime trends within Australia by attempting to explore the crime results in each state as well as the gender trend for crime offence in Australia. To do this, we will use the '4519.0 - Recorded Crime - Offenders' datasets from the @AB01 which can be found for the years 2016-17 [here](https://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/4519.02018-19?OpenDocument) and the years 2018-19 [here](https://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/4519.02018-19?OpenDocument). These datasets were combined and modified in Excel prior to being read in. Per the @AB02, its data is supplied with Creative Commons Attribution 4.0 International licensing and is therefore free to be re-used in this analysis.
+In this section, we will focus our analysis on crime trends within Australia by attempting to explore the crime results in each state as well as the gender trend for crime offence in Australia. To do this, we will use the '4519.0 - Recorded Crime - Offenders' datasets from the @AB01 which can be found for the years 2016-17 [here]<https://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/4519.02018-19?OpenDocument> and the years 2018-19 [here]<https://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/4519.02018-19?OpenDocument>. These datasets were combined and modified in Excel prior to being read in. Per the @AB02, its data is supplied with Creative Commons Attribution 4.0 International licensing and is therefore free to be re-used in this analysis.
 
 ```{r readdata, include = FALSE}
 crime_states <- read_csv(here("Data/Book1 offenders, states and territories .csv"))
@@ -231,7 +231,7 @@ tourism_clean_world_a <- tourism_clean_world %>%
          Arrivals=`Tourist/visitor arrivals (thousands)`)
 ```
 
-Having looked at Crime trends around the world and in Australia, let's change tact and now look at Tourism trends. The data will be using is the UN's 'Tourist/visitor arrivals and tourism expenditure' dataset avaiable on the [UN data webpage](https://data.un.org) @UN12. Per the @TC45, all the data available provided on the UN Data wesbite is available to be copied freely. It is, therefore, able to be used in the following analysis. The data provides information on Tourism Arrivals (how many tourists arrive in each country) and Tourism Expenditure (the amount of money tourists spend in a country they are visiting). Data was collected in the years 1995, 2005, 2010, 2016, 2017 and 2018. In some instances, a full view of Tourism Arrival and Tourism Expenditure was not available for every single country in all of the years. As such, these countries were removed to preserve the integrity of analysis when comparing global tourism trends from year to year.
+Having looked at Crime trends around the world and in Australia, let's change tact and now look at Tourism trends. The data will be using is the UN's 'Tourist/visitor arrivals and tourism expenditure' dataset avaiable on the [UN data webpage]<https://data.un.org> @UN12. Per the @TC45, all the data available provided on the UN Data wesbite is available to be copied freely. It is, therefore, able to be used in the following analysis. The data provides information on Tourism Arrivals (how many tourists arrive in each country) and Tourism Expenditure (the amount of money tourists spend in a country they are visiting). Data was collected in the years 1995, 2005, 2010, 2016, 2017 and 2018. In some instances, a full view of Tourism Arrival and Tourism Expenditure was not available for every single country in all of the years. As such, these countries were removed to preserve the integrity of analysis when comparing global tourism trends from year to year.
 
 So, let's dive into specifics. The below analysis will look at two main variables - the number of 'tourists' in thousands of people (measured by tourist arrivals in each country) and global tourist expenditure (that is, the amount of money spent by tourists) measured in millions of U.S. dollars.
 
@@ -256,7 +256,7 @@ tourist_growth <- (956957.0-387302.2)/387302.2
 expenditure_growth <- (1207846.6-366438.1)/366438.1
 ```
 
-```{r tourist-1995, fig.cap="Top 3 Tourist Destinations in 1995"}
+```{r tourist1995, fig.cap="Top 3 Tourist Destinations in 1995"}
 tourism_clean_world_1995 <- tourism_clean_world_a %>%
   filter(Year==1995) %>%
   arrange(-Arrivals) %>%
@@ -268,7 +268,7 @@ tourism_clean_world_1995 <- tourism_clean_world_a %>%
 tourism_clean_world_1995
 ```
 
-```{r tourist-2018, fig.cap="Top 3 Tourist Destinations in 2018"}
+```{r tourist2018, fig.cap="Top 3 Tourist Destinations in 2018"}
 tourism_clean_world_2018 <- tourism_clean_world_a %>%
   filter(Year==2018) %>%
   arrange(-Arrivals) %>%
@@ -280,7 +280,7 @@ tourism_clean_world_2018 <- tourism_clean_world_a %>%
 tourism_clean_world_2018
 ```
 
-So, where are these tourists actually going?  As we can see in Table \@ref(tab:tourist-1995), France was the most popular destination with ~60 million tourists visiting, followed by the United States of America and then Spain. By 2018, as evidenced in Table \@ref(tab:tourist-2018) these three destinations remained the most popular with France still leading the way. Spain had overtaken the U.S., however, as the second most popular destination.
+So, where are these tourists actually going?  As we can see in Table \@ref(tab:tourist1995), France was the most popular destination with ~60 million tourists visiting, followed by the United States of America and then Spain. By 2018, as evidenced in Table \@ref(tab:tourist2018) these three destinations remained the most popular with France still leading the way. Spain had overtaken the U.S., however, as the second most popular destination.
 
 ```{r expenditure-data}
 
@@ -294,7 +294,7 @@ tourism_clean_world_c <- tourism_clean_world_a %>%
   top_n(20)
 ```
 
-```{r expenditure-per-person, fig.cap="Average Expenditure per Tourist in 2018 by Country"}
+```{r expenditureperperson, fig.cap="Average Expenditure per Tourist in 2018 by Country"}
 tourism_clean_world_c %>%
   ggplot(aes(x=reorder(Country,Expenditure_per_Person), y=Expenditure_per_Person)) +
   geom_col() +
@@ -304,7 +304,7 @@ tourism_clean_world_c %>%
   
 ```
 
-Figure \@ref(fig:expenditure-per-person) shows us the top 20 countries in 2018 in Average Expenditure per Tourist. Australia leads the way with the average tourist visiting Australia spending in excess of 5000 U.S. dollars. Interestingly, of the most popular tourist destinations of 2018 outlined in \@ref(tab:tourist-2018), only the U.S. makes the top 20 list for average expenditure per tourist.
+Figure \@ref(fig:expenditureperperson) shows us the top 20 countries in 2018 in Average Expenditure per Tourist. Australia leads the way with the average tourist visiting Australia spending in excess of 5000 U.S. dollars. Interestingly, of the most popular tourist destinations of 2018 outlined in \@ref(tab:tourist2018), only the U.S. makes the top 20 list for average expenditure per tourist.
 
 \clearpage
 
@@ -350,8 +350,8 @@ australia %>%
   kable_styling(latex_options = "hold_position")
 ```
 
-- In the financial year 2018/19, Australia experienced a growth of 3.5% over the previous year and generated $ 60.8 billion in direct tourism Gross Domestic Product (GDP).  (@touraus) 
-- In that, international travellers spent an amount of $44.6 billion, which 5% more than the previous year. (@tour)
+- In the financial year 2018/19, Australia experienced a growth of 3.5% over the previous year and generated $ 60.8 billion in direct tourism Gross Domestic Product (GDP).  [@touraus] 
+- In that, international travellers spent an amount of $44.6 billion, which 5% more than the previous year. [@tour]
 
 On a standardised scale, Figure \@ref(fig:ausbar) is a representation of the tourist arrivals in and the expenditure contributed by them on their visit to Australia. We can understand, the travel and tourism sector is a major attraction and the results shows the number keep increasing every year. 
 
