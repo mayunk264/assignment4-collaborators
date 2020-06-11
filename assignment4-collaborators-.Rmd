@@ -86,7 +86,7 @@ names(crime_world)[6] <- "Source"
 crime_world <- crime_world %>%  arrange(region, Year)
 ```
 
-In this section, we are looking at the crime rate throughout the world and the mean values of each of the eight crimes as in Table \@ref(tab:distinct-crimes) in each of the 231 different regions reported in the source data. This dataset used is titled 'Intentional homicides and other crimes' and is sourced from the [UN data webpage](https://data.un.org) (@UN13). Per the @TC45, all the data available provided on the UN Data wesbite is available to be copied freely. It is, therefore, able to be used in the following analysis. Although this data is from a reputable source, a potential limitation of the data is that the actual crime rate within each country may be faulty due to fear of constitutional laws within the country or corruption.
+In this section, we are looking at the crime rate throughout the world and the mean values of each of the eight crimes as in Table \@ref(tab:distinct-crimes) in each of the 231 different regions reported in the source data. This dataset used is titled 'Intentional homicides and other crimes' and is sourced from the [UN data webpage](https://data.un.org) (@UN13). Per the @TC45, all the data available provided on the UN Data website is available to be copied freely. It is, therefore, able to be used in the following analysis. Although this data is from a reputable source, a potential limitation of the data is that the actual crime rate within each country may be faulty due to fear of constitutional laws within the country or corruption.
 
 ```{r distinct-crimes}
 unique(crime_world$Crimes) %>% kable(caption = "Different crimes recorded") %>%  kable_styling(bootstrap_options = c("Striped","hover"),latex_options = "hold_position")
@@ -180,7 +180,7 @@ crime_type %>%
   facet_wrap(~ States, ncol = 3)
 ```
 
-Per Figure \@ref(fig:statesoffence), VIC, ACT and WA are the three safer states in Australia as all these four offence-types are below 500 offenders per 100,000 persons from 2016 to 2019. Illicit drug offences are relatively higher in SA compared with the other states over four years. The offender rate of theft in SA and NSW sees a significant decrease from 500 to 250 offenders per 100,000 persons over the same period. The Northern Territory has the highest crime rate amongst the eight states, especially for public order offences. The maximum amount of public order offences was 2500 offenders per 100,000 persons and decreased to 1750 offenders per 100,000 persons in 2018. Despite this decrease, public order offences remained the most common principal offence. 
+Per Figure \@ref(fig:statesoffence), VIC, ACT and WA are the three safer states in Australia as all these four offence-types are below 500 offenders per 100,000 persons from 2016 to 2019. Illicit drug offences are relatively higher in SA compared with the other states over four years. The offender rate of theft in SA and NSW sees a significant decrease from 500 to 250 offenders per 100,000 persons over the same period. The Northern Territory has the highest crime rate among the eight states, especially for public order offences. The maximum amount of public order offences was 2500 offenders per 100,000 persons and decreased to 1750 offenders per 100,000 persons in 2018. Despite this decrease, public order offences remained the most common principal offence. 
 
 
 ```{r crime-by-gender}
@@ -230,7 +230,7 @@ tourism_clean_world_a <- tourism_clean_world %>%
          Arrivals=`Tourist/visitor arrivals (thousands)`)
 ```
 
-Having looked at Crime trends around the world and in Australia, let's change tact and now look at Tourism trends. The data will be using is the UN's 'Tourist/visitor arrivals and tourism expenditure' dataset avaiable on the [UN data webpage](https://data.un.org) (@UN12). Per the @TC45, all the data available provided on the UN Data wesbite is available to be copied freely. It is, therefore, able to be used in the following analysis. The data provides information on Tourism Arrivals (how many tourists arrive in each country) and Tourism Expenditure (the amount of money tourists spend in a country they are visiting). Data was collected in the years 1995, 2005, 2010, 2016, 2017 and 2018. In some instances, a full view of Tourism Arrival and Tourism Expenditure was not available for every single country in all of the years. As such, these countries were removed to preserve the integrity of analysis when comparing global tourism trends from year to year.
+Having looked at Crime trends around the world and in Australia, let's change tact and now look at Tourism trends. The data will be using is the UN's 'Tourist/visitor arrivals and tourism expenditure' dataset available on the [UN data webpage](https://data.un.org) (@UN12). Per the @TC45, all the data available provided on the UN Data wesbite is available to be copied freely. It is, therefore, able to be used in the following analysis. The data provides information on Tourism Arrivals (how many tourists arrive in each country) and Tourism Expenditure (the amount of money tourists spend in a country they are visiting). Data was collected in the years 1995, 2005, 2010, 2016, 2017 and 2018. In some instances, a full view of Tourism Arrival and Tourism Expenditure was not available for every single country in all of the years. As such, these countries were removed to preserve the integrity of analysis when comparing global tourism trends from year to year.
 
 So, let's dive into specifics. The below analysis will look at two main variables - the number of 'tourists' in thousands of people (measured by tourist arrivals in each country) and global tourist expenditure (that is, the amount of money spent by tourists) measured in millions of U.S. dollars.
 
@@ -445,7 +445,7 @@ legend("right", c("1995","2005","2010","2016","2017","2018"), cex = 0.8,
 
 - Australia had a record 9.5 million visitors arrivals in 2019.
 
-- 47% of visitors arrive in Australia for holiday puropose. (@abs)
+- 47% of visitors arrive in Australia for holiday purpose. (@abs)
 
 
 \clearpage
@@ -554,17 +554,15 @@ In sum, the linear models above are good models and may be used to respectively 
 \clearpage
 
 # Conclusion
-(Varsha) In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the tables we were able to find that El Salvador was considered to be the most dangerous country in the world both in the years of 2005 and 2016 even though there was a huge gap between the two years for improvement.
-
-In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the world map we could see that many countries have a high rate of crimes. In which the most commonly committed crime is Robbery at the national level,rate per 100,000 population and the country being Canada.
+In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the tables we were able to find that El Salvador was considered to be the most dangerous country in the world both in the years of 2005 and 2016 even though there was a huge gap between the these years for improvement.
 
 Crime offence rates in Australia of each state are different from 2016 to 2019. The states with the highest crime rate are National Territories for drug offences, acts intended to cause injury, theft and public order offences. Then, crime rate of male is higher than female in each type of offence, but they have same trend in recent ten years. 
 
 Tourism remains an industry vital to the global economy, evidenced by the incredible growth in both number of tourists and the money they spend while on tour. France, Spain and the U.S. have been and still are the most popular tourist destinations. Tourists themselves spend the most money in Australia at over 5000 USD per person.
 
-Tourism provides a source of income to the economy of Australia and is a major employer of Australians as it helps in generating jobs, investment and growth in communities. With the tourist arrivals and tourism expenditure growing on a yearly basis, a large number of regions in Australia are benefitted as they rely significantly on tourism as their economic base. 
+Tourism provides a source of income to the economy of Australia and is a major employer of Australians as it helps in generating jobs, investment and growth in communities. With the tourist arrivals and tourism expenditure growing on a yearly basis, a large number of regions in Australia are benefited as they rely significantly on tourism as their economic base. 
 
-The relationship between crime and tourism does exist. However, country and visitor arrival are the dominant explanatory variables in two models, respectively. We may deduce that holding crime rate and year constant, some countries could attract more tourists than other countries. This is logical because some countries have more landmarks than other countries. In additional, due to the high $R^2$ values, two linear models may be used for predicting visitor arrival and visitor spending in the future.
+Finally, the relationship between crime and tourism does exist. However, country and visitor arrival are the dominant explanatory variables in two models, respectively. We may deduce that holding crime rate and year constant, some countries could attract more tourists than other countries. This is logical because some countries have more landmarks than other countries. In additional, due to the high $R^2$ values, two linear models may be used for predicting visitor arrival and visitor spending in the future.
 
 
 \clearpage
