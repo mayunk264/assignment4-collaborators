@@ -313,7 +313,7 @@ Figure \@ref(fig:expenditureperperson) shows us the top 20 countries in 2018 in 
 
 Now let's look at Tourism trends in Australia. The following analysis was conducted with the use of the same dataset as the previous section - the UN's 'Tourist/visitor arrivals and tourism expenditure' dataset
 
-Australia (also known as Australasia), is large country reaching from the tropics to mid-latitudes in the Oceania continent. The Aussie mainland is the world's largest island and the driest continent. It has a land area of 8 million $km^2$ and a population of 25.5 million as of 2020.
+Australia (also known as Australasia), is large country reaching from the tropics to mid-latitudes in the Oceania continent. The Aussie mainland is the world's largest island and the driest continent. It has a land area of 8 million $km^2$ and a population of 25.5 million as of 2020. (@aus)
 
 Australia is world famous for its natural wonders and wide spaces, beaches, deserts, bushes. It is one of the world's most highly urbanised and is known for the attractions of its large cities such as Melbourne, Sydney, Brisbane and Perth. Some of most visited tourist attractions in Australia are: 
 
