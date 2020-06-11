@@ -75,8 +75,8 @@ tourism_clean <- tourism[-1,]
 \clearpage
 
 # Crime offences throughout the world
-**The following section was compiled and edited by Varsha Ujjinni Vijay Kumar**
-
+*The following section was compiled and edited by Varsha Ujjinni Vijay Kumar*
+  
 ```{r}
 crime_world <- crime_clean[,-6] 
 names(crime_world)[1] <- "Country_Code"
@@ -86,19 +86,24 @@ names(crime_world)[6] <- "Source"
 crime_world <- crime_world %>%  arrange(region, Year)
 ```
 
-In this section, we are looking at the crime rate throughout the world and the mean values of each of the eight crimes as in Table \@ref(tab:distinctcrimes) in each of the 231 different regions reported in the source data. This dataset used is titled 'Intentional homicides and other crimes' and is sourced from the [UN data webpage]<https://data.un.org> [@UN13]. Although this data is from a reputable source, a potential limitation of the data is that the actual crime rate within each country may be faulty due to fear of constitutional laws within the country or corruption.
+In this section, we are looking at the crime rate throughout the world and the mean values of each of the eight crimes as in Table \@ref(tab:distinct-crimes) in each of the 231 different regions reported in the source data. This dataset used is titled 'Intentional homicides and other crimes' and is sourced from the [UN data webpage](https://data.un.org) (@UN13). Although this data is from a reputable source, a potential limitation of the data is that the actual crime rate within each country may be faulty due to fear of constitutional laws within the country or corruption.
 
-```{r distinctcrimes}
+```{r distinct-crimes}
 unique(crime_world$Crimes) %>% kable(caption = "Different crimes recorded") %>%  kable_styling(bootstrap_options = c("Striped","hover"),latex_options = "hold_position")
 ```
 
-This section covers what kind of crimes are at large in different parts of the world. The day-to-day incidents of crime such as robbery, burglary, assault and theft —seem to be largely an urban phenomenon driven by local factors. Urban planning, crime prevention and police action may all appear to play an important role in decreasing the risk of crime victimization on one end of the spectrum. On the other end of the spectrum are forms of transnational organized crime, including trafficking in goods and persons, that can involve extended cross-national networks.
+This section covers the overall crime rate in the world data and what kind of crimes are at large in different parts of the world. The day-to-day incidents of crime such as robbery, burglary, assault and theft — may seem to be largely an urban phenomenon driven by local factors. Urban planning, crime prevention and police action may all appear to play an important role in decreasing the risk of crime victimization is on one end of the spectrum. And at the other end of the spectrum are forms of transnational organized crime, including trafficking in goods and persons, that can involve extended cross-national networks.
+Although this data is form a well known data site, the actual crime rate within each country maybe faulty due to fear in constitutional laws within the country or corruption. The plot \@ref(fig:crimerates) depicts a column graph with year on the x-axis and counts on the y-axis, where the the years in the dataset vary from 2000 through to year 2016, looking at this plot it can be inferred that the rate of crimes in the year 2010 was the highest with a count of more than 750 mean cases throughout the world. Followed by approximate values in 2005, 2015 and 2016 with mean counts of 760, 600 and 500. It also illustrates that with the years the crime rates have been fluctuating rapidly but also with time the crime mean counts have decreased.
 
 The plot \@ref(fig:crimerates) depicts a column graph with year on the x-axis and counts on the y-axis, where the the years in the dataset vary from 2000 through to year 2016. Looking at this plot it can be inferred that the rate of crimes in the year 2010 was the highest with a count of more than 750 mean cases throughout the world. Followed by approximate values in 2005, 2015 and 2016 with mean counts of 760, 600 and 500. It also illustrates that with the years the crime rates have been fluctuating rapidly but also with time the crime mean counts have decreased.
 
 ```{r crimerates, fig.pos="H", fig.cap= "Mean crime rates throughout the years"}
-crime_rate <- crime_world %>% filter(Year %in% c("2005","2010","2015","2016")) %>% group_by(Year,Crimes,region) %>% 
-   count(Crimes)
+crime_rate <- crime_world %>% 
+  group_by(Year,Crimes,region) %>% 
+  count(Crimes) %>%
+  filter(Year %in% c(2005,2010,2015,2016))
+
+
 ggplot(crime_rate,
        aes(x = Year,
            y = n)) + 
@@ -106,54 +111,37 @@ ggplot(crime_rate,
   geom_col()
 ```
 
-```{r highestcrime, eval=FALSE}
-data <- crime_world %>%  
-  select(Year,Crimes,Value,region) %>%  filter(Year %in% c("2005","2010","2015","2016")) %>%
-  group_by(region) %>% pivot_wider(names_from = "Crimes", values_from = "Value") 
-#ggplot(aes(x = region)) + geom_histogram(stat = "count") 
+
+```{r highesthomicide-2005}
+crime_world %>%  
+  select(Year,Crimes,Value,region) %>%
+  mutate(Value=as.numeric(Value)) %>%
+  filter(Crimes=="Intentional homicide rates per 100,000",
+         Year==2005) %>%
+  arrange(desc(Value)) %>%
+  select(-Crimes) %>%
+  head(5) %>%
+  kable(caption="Countries with highest Intentional Homicide Rates in 2005") %>%
+  kable_styling(bootstrap_options = c("Striped","hover"),
+                 latex_options = "hold_position")
 ```
 
 
-```{r}
-pq <- data %>%  select(Year,`Intentional homicide rates per 100,000`,region) %>% filter(Year == "2010") %>% group_by(region,Year)  %>%  arrange(`Intentional homicide rates per 100,000`) %>%  top_n(7)
-#ggplot(pq, aes(x = region))
+```{r highesthomicide-2016}
+crime_world %>%  
+  select(Year,Crimes,Value,region) %>%
+  mutate(Value=as.numeric(Value)) %>%
+  filter(Crimes=="Intentional homicide rates per 100,000",
+         Year==2016) %>%
+  arrange(desc(Value))  %>%
+  select(-Crimes) %>%
+  head(5) %>%
+  kable(caption="Countries with highest Intentional Homicide Rates in 2016") %>%
+  kable_styling(bootstrap_options = c("Striped","hover"),
+                 latex_options = "hold_position")
 ```
 
-
-
-```{r worldmap}
-require(maps)
-world_map <- map_data("world")
-crimemap <- merge(world_map,crime_world, by = "region") 
-  #pivot_wider(names_from = "Crimes", values_from = "Value")
-```
-
-The library maps is a very useful package in the CRAN which helps us R-users visualize the world analysis better [@maps]. Using this maps package for drawing geographical maps ,we can depict the different types of crimes in different countries over the years, the legend on the side depicts the crimes which are most commonly known for. 
-
-
-```{r worldmapdata, fig.height= 9 ,fig.pos="H", fig.width=9, fig.cap="World map depicting the crimes within each country"}
-library(viridis)
-library(ggmap)
-crime_world_map <- crimemap %>% filter(Year %in% c(2005,2010,2015,2016))
-p <- ggplot(crime_world_map, 
-       aes(x = long, 
-           y = lat, 
-           group = group
-           ),fill = Crimes) +
-  geom_polygon(color = "grey90")+theme_classic()+
-  #scale_fill_viridis_c(guide = "legend") + 
-  scale_x_continuous() +scale_y_continuous() 
-#plotly::ggplotly(p)
-p
-```
-
-
-
-Research question within this section: 
-
-- The crime rates throughout the world, which type of crime has more mean counts and which country has this identified crime?
-
---> Going through the entire dataset and the throughout the years, it can be concluded that the crime rates have surely decreased with time, year 2010 has the highest rates of crimes in the entire world. Looking at the world map figure : \@ref(fig:worldmapdata) we can see that the most committed crime is by Robbery at the national level,rate per 100,000 population followed by intentional homicide rates per 100.000 in blue and brown respectively. It also depicts the percentage of male and female intentional homicide victims, out of which it can be inferred that the females are mostly the victims of homicides at large throughout the world and the country with most number of Robbery at the national level,rate per 100,000 population  is Canada.
+Now we understand that crime rates are trending downwards globally, let's form a perspective into some of the most dangerous countries. For the sake of our analysis, let's define this 'danger' as the likelihood that homicide might occur. Table \@ref(tab:highesthomicide-2005) shows us that in 2005, El Salvador was the most 'dangerous' country with a rate of 64.4 intentional homicides per 100,000 people. Jamaica followed closely with a rate of 61.1 intentional homicides per 100,000 people. By 2016, as can been seen in Table \@ref(tab:highesthomicide-2016)  Jamaica's rate had decreased to 47.0 intentional homicides per 100,000 people. Unfortunately, El Salvador remains at the top of the list with 82.8 intentional homicides per 100,000 people, followed by Honduras with a rate of 56.5.
 
 \clearpage
 
@@ -551,6 +539,7 @@ Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range 
 In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist. 
 
 # Conclusion
+(Varsha) In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the tables we were able to find that El Salvador was considered to be the most dangerous country in the world both in the years of 2005 and 2016 even though there was a huge gap between the two years for improvement.
 
 In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the world map we could see that many countries have a high rate of crimes. In which the most commonly committed crime is Robbery at the national level,rate per 100,000 population and the country being Canada.
 
