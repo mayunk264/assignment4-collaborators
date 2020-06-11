@@ -380,7 +380,7 @@ In Figure \@ref(fig:boxplot) , the cross mark indicated the average (mean) value
 - The average tourism expenditure ranges between 30,000 - 35,000 USD (millions). 
 - The average tourist arrivals ranges between 5,000 - 8,000 (thousands). 
 
-```{r boxplot, fig.cap="Boxplot of tourism expenditure and tourist arrivals in Australia"}
+```{r boxplot, fig.width=10, fig.cap="Boxplot of tourism expenditure and tourist arrivals in Australia"}
 Aus_plot %>% 
   ggplot(aes(x = Series, y = Value, col = Series)) +
   geom_boxplot() +
@@ -551,6 +551,8 @@ Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range 
 
 In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist. 
 
+\clearpage
+
 # Conclusion
 
 In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the world map we could see that many countries have a high rate of crimes. In which the most commonly committed crime is Robbery at the national level,rate per 100,000 population and the country being Canada.
@@ -572,4 +574,3 @@ ggplot2 [@ggplot2], broom [@broom], naniar [@naniar], readxl[@readxl], ggthemes[
 
 We use renv [@renv] to ensure the report is reproducible.
 \clearpage
-# References
