@@ -315,6 +315,8 @@ Figure \@ref(fig:expenditure-per-person) shows us the top 20 countries in 2018 i
 
 # Tourism in Australia - edited by Ankush Vemagal
 
+**The following section was compiled and edited by Ankush Vemagal**
+
 ```{r}
 
 #Ankush --> focus on tourism in Australia
@@ -382,7 +384,7 @@ Aus_plot %>%
 In Figure \@ref(fig:boxplot) , the cross mark indicated the average (mean) value of the respective series. We observe the following:
 
 - The average tourism expenditure ranges between 30,000 - 35,000 USD (millions). 
-- The average tourist arrivals ranges bewteen 5,000 - 8,000 (thousands). 
+- The average tourist arrivals ranges between 5,000 - 8,000 (thousands). 
 
 ```{r boxplot, fig.cap="Boxplot of tourism expenditure and tourist arrivals in Australia"}
 Aus_plot %>% 
@@ -443,9 +445,7 @@ pie(tour$Visitors_per, labels = piepercent,
 
 - Australia had a record 9.5 million visitors arrivals in 2019.
 
-- 47% of visitors arrive in Australia for holiday puropose.
-
-- The median duration of stay in australia is 10 days. (ABS [2019])
+- 47% of visitors arrive in Australia for holiday puropose. (@abs)
 
 
 \clearpage
