@@ -180,7 +180,7 @@ crime_type %>%
   facet_wrap(~ States, ncol = 3)
 ```
 
-Per Figure \@ref(fig:statesoffence), VIC, ACT and WA are three three safer states in Australia as all these four offence-types are below 500 offenders per 100,000 persons from 2016 to 2019. Illicit drug offences are relatively higher in SA compared with the other states over four years. The offender rate of theft in SA and NSW sees a significant decrease from 500 to 250 offenders per 100,000 persons over the same period. The Northern Territory has the highest crime rate over the eight states, especially for public order offences. The maximum amount of public order offences was 2500 offenders per 100,000 persons and decreased to 1750 offenders per 100,000 persons in 2018. Despite this decrease, public order offences remained the most common principal offence. 
+Per Figure \@ref(fig:statesoffence), VIC, ACT and WA are the three safer states in Australia as all these four offence-types are below 500 offenders per 100,000 persons from 2016 to 2019. Illicit drug offences are relatively higher in SA compared with the other states over four years. The offender rate of theft in SA and NSW sees a significant decrease from 500 to 250 offenders per 100,000 persons over the same period. The Northern Territory has the highest crime rate amongst the eight states, especially for public order offences. The maximum amount of public order offences was 2500 offenders per 100,000 persons and decreased to 1750 offenders per 100,000 persons in 2018. Despite this decrease, public order offences remained the most common principal offence. 
 
 
 ```{r crime-by-gender}
@@ -230,7 +230,7 @@ tourism_clean_world_a <- tourism_clean_world %>%
          Arrivals=`Tourist/visitor arrivals (thousands)`)
 ```
 
-Having looked at Crime trends around the world and in Australia, let's change tact and now look at Tourism trends. The data will be using is the UN's 'Tourist/visitor arrivals and tourism expenditure' dataset avaiable on the [UN data webpage](https://data.un.org) @UN12. Per the @TC45, all the data available provided on the UN Data wesbite is available to be copied freely. It is, therefore, able to be used in the following analysis. The data provides information on Tourism Arrivals (how many tourists arrive in each country) and Tourism Expenditure (the amount of money tourists spend in a country they are visiting). Data was collected in the years 1995, 2005, 2010, 2016, 2017 and 2018. In some instances, a full view of Tourism Arrival and Tourism Expenditure was not available for every single country in all of the years. As such, these countries were removed to preserve the integrity of analysis when comparing global tourism trends from year to year.
+Having looked at Crime trends around the world and in Australia, let's change tact and now look at Tourism trends. The data will be using is the UN's 'Tourist/visitor arrivals and tourism expenditure' dataset avaiable on the [UN data webpage](https://data.un.org) (@UN12). Per the @TC45, all the data available provided on the UN Data wesbite is available to be copied freely. It is, therefore, able to be used in the following analysis. The data provides information on Tourism Arrivals (how many tourists arrive in each country) and Tourism Expenditure (the amount of money tourists spend in a country they are visiting). Data was collected in the years 1995, 2005, 2010, 2016, 2017 and 2018. In some instances, a full view of Tourism Arrival and Tourism Expenditure was not available for every single country in all of the years. As such, these countries were removed to preserve the integrity of analysis when comparing global tourism trends from year to year.
 
 So, let's dive into specifics. The below analysis will look at two main variables - the number of 'tourists' in thousands of people (measured by tourist arrivals in each country) and global tourist expenditure (that is, the amount of money spent by tourists) measured in millions of U.S. dollars.
 
@@ -261,7 +261,7 @@ tourism_clean_world_1995 <- tourism_clean_world_a %>%
   arrange(-Arrivals) %>%
   select(-Expenditure,-Year) %>%
   top_n(3) %>%
-  kable(caption="Top 3 Tourist Destinations in 1995") %>%
+  kable(caption="Top 3 Tourist Destinations in 1995 in thousands of people") %>%
   kable_styling(latex_options = "hold_position")
 
 tourism_clean_world_1995
@@ -273,13 +273,15 @@ tourism_clean_world_2018 <- tourism_clean_world_a %>%
   arrange(-Arrivals) %>%
   select(-Expenditure,-Year) %>%
   top_n(3)%>%
-  kable(caption="Top 3 Tourist Destinations in 2018") %>%
+  kable(caption="Top 3 Tourist Destinations in 2018 in thousands of people") %>%
   kable_styling(latex_options = "hold_position")
 
 tourism_clean_world_2018
 ```
 
 So, where are these tourists actually going?  As we can see in Table \@ref(tab:tourist1995), France was the most popular destination with ~60 million tourists visiting, followed by the United States of America and then Spain. By 2018, as evidenced in Table \@ref(tab:tourist2018) these three destinations remained the most popular with France still leading the way. Spain had overtaken the U.S., however, as the second most popular destination.
+
+Figure \@ref(fig:expenditureperperson) shows us the top 20 countries in 2018 in Average Expenditure per Tourist. Australia leads the way with the average tourist visiting Australia spending in excess of 5000 U.S. dollars. Interestingly, of the most popular tourist destinations of 2018 outlined in Table \@ref(tab:tourist2018), only the U.S. makes the top 20 list for average expenditure per tourist.
 
 ```{r expenditure-data}
 
@@ -303,7 +305,6 @@ tourism_clean_world_c %>%
   
 ```
 
-Figure \@ref(fig:expenditureperperson) shows us the top 20 countries in 2018 in Average Expenditure per Tourist. Australia leads the way with the average tourist visiting Australia spending in excess of 5000 U.S. dollars. Interestingly, of the most popular tourist destinations of 2018 outlined in \@ref(tab:tourist2018), only the U.S. makes the top 20 list for average expenditure per tourist.
 
 \clearpage
 
