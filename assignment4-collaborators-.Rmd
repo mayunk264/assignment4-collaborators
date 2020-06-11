@@ -423,6 +423,8 @@ legend("right", c("1995","2005","2010","2016","2017","2018"), cex = 0.8,
 
 ```
 
+\newpage
+
 **Tourist/Visitor Arrivals**
 
 Figure \@ref(fig:ausvisitpie) is pie chart showing the cumulative percentage contribution of the tourist arrivals over the years between 199-2018. 22.36%, was a major part of the tourist arrival contribution came in the year 2018 and the least was 9.01% which came in the year 1995. 
