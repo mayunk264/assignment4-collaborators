@@ -554,7 +554,7 @@ Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range 
 In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist. 
 
 # Conclusion
-(Varsha) In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the world map we could see that many countries have a high rate of crimes. In which the most commonly committed crime is Robbery at the national level,rate per 100,000 population.
+(Varsha) In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the tables we were able to find that El Salvador was considered to be the most dangerous country in the world both in the years of 2005 and 2016 even though there was a huge gap between the two years for improvement.
 
 (Yawen) Overall, crime offence rates in Australia of each state are different from 2016 to 2019. The states with the highest crime rate are National Territories for drug offences, acts intended to cause injury, theft and public order offences. Then, crime rate of male is higher than female in each type of offence, but they have same trend in recent ten years. 
 
