@@ -74,7 +74,7 @@ tourism_clean <- tourism[-1,]
 
 \clearpage
 
-# Crime offences throughout the world
+# Crime trends throughout the world
 *The following section was compiled and edited by Varsha Ujjinni Vijay Kumar*
   
 ```{r}
@@ -567,7 +567,7 @@ The relationship between crime and tourism does exist. However, country and visi
 
 
 \clearpage
-# Acknowledgments
+# Acknowledgements
 The packages used to produce this report are: 
 
 ggplot2 [@ggplot2], broom [@broom], naniar [@naniar], readxl[@readxl], ggthemes[@ggthemes], knitr [@knitr], kableExtra [@kableExtra], tidyverse [@tidyverse], janitor [@janitor], readr [@readr], lubridate [@lubridate], base [@base], graphics [@graphics], dplyr [@dplyr], here [@here], png [@png].
