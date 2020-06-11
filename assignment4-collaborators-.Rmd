@@ -438,14 +438,15 @@ pie(tour$Visitors_per, labels = piepercent,
 
 \clearpage
 
-# Relationship between Crime and Tourism - edited by Yuheng Cui 
+# Relationship between Crime and Tourism
+**The following section was compiled and edited by Yuheng Cui.**
 
 ```{r packages used in this section}
 library(naniar)
 library(broom)
 ```
 
-In this section we try to find the relationship between tourism and crime. For tourism, the number of visitor arrivals and visitor spending are two important indicators, therefore, we built two models for both of the indicators, respectively. Before creating models, we must remove the variables with too many missing values. Figure \@ref(fig:vismiss) specifies the missing values in crime data set. We only kept Intentional homicide rates per 100,000 and removed other variables. Table \@ref(tab:jointables) is table combined with crime and tourism. The missing values still existed, but they are few.
+In this section we try to find the relationship between tourism and crime. The data used are the UN Crime and Tourism datasets described in previous sections. For tourism, the number of visitor arrivals and visitor spending are two important indicators, therefore, we built two models for both of the indicators, respectively. Before creating models, we must remove the variables with too many missing values. Figure \@ref(fig:vismiss) specifies the missing values in the crime data set. We only kept Intentional homicide rates per 100,000 and removed other variables. Table \@ref(tab:jointables) is table combined with crime and tourism. The missing values still existed, but they are few.
 
 ```{r vismiss, fig.cap = "missing value in crime data set"}
 crime_clean_wide <- crime_clean %>%
@@ -508,7 +509,7 @@ augment(lm_tour_crime_2, data = tour_crime) %>%
 
 \clearpage
 
-Next, we built three linear models for visitor spending. Three models all used country and year as explanatory variables. However, in Model 1, we used intentional homicide rates as additional explanatory variable; in Model 2, we used visitor arrivals as additional explanatory variable; in Model 3, we used both intentional homicide rates and visitor arrivals. Table \@ref(tab:lmspendingvisitor) shows Model 3 had the highest $R^2$ value. There were 96.54% of variations in explanatory variables could be explained by model 2. In sum, the number of visitor arrivals had bigger influence than crime rate on the fitness of the model. That is, holding crime rate and year constant, some countries were more attractive to tourists.
+Next, we built three linear models for visitor spending. Three models all used country and year as explanatory variables. However, in Model 1, we used intentional homicide rates as additional explanatory variable; in Model 2, we used visitor arrivals as additional explanatory variable; in Model 3, we used both intentional homicide rates and visitor arrivals. Table \@ref(tab:lmspendingvisitor) shows Model 3 had the highest $R^2$ value. 96.54% of variations in explanatory variables could be explained by model 2. In sum, the number of visitor arrivals had bigger influence than crime rate on the fitness of the model. That is, holding crime rate and year constant, some countries were more attractive to tourists.
 
 ```{r lmspendingvisitor}
 lm_spending_visitor1 <- lm(tour_exp_millionsusd ~ intentional_homicide_rates_per_100_000 +country + year, data = tour_crime)
@@ -539,23 +540,24 @@ Figure \@ref(fig:lmspendingplot) specifies that the model did well in the range 
 In sum, the linear models above are good models and may be used to respectively predict visitor arrivals and visitor spending. The relationships among crime rate, number of tourists and tourist spending do exist. 
 
 # Conclusion
-(Varsha) In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the world map we could see that many countries have a high rate of crimes. In which the most commonly committed crime is Robbery at the national level,rate per 100,000 population and the country being Canada.
 
-(Yawen) Overall, crime offence rates in Australia of each state are different from 2016 to 2019. The states with the highest crime rate are National Territories for drug offences, acts intended to cause injury, theft and public order offences. Then, crime rate of male is higher than female in each type of offence, but they have same trend in recent ten years. 
+In conclusion, the crime rates for every country is a problem, it decrease the boost in the economy and with the world map we could see that many countries have a high rate of crimes. In which the most commonly committed crime is Robbery at the national level,rate per 100,000 population and the country being Canada.
 
-(Mayunk) Tourism remains an industry vital to the global economy, evidenced by the incredible growth in both number of tourists and the money they spend while on tour. France, Spain and the U.S. have been and still are the most popular tourist destinations. Tourists themselves spend the most money in Australia at over 5000 USD per person.
+Crime offence rates in Australia of each state are different from 2016 to 2019. The states with the highest crime rate are National Territories for drug offences, acts intended to cause injury, theft and public order offences. Then, crime rate of male is higher than female in each type of offence, but they have same trend in recent ten years. 
 
-(Ankush) Tourism provides a source of income to the economy of Australia and is a major employer of Australians as it helps in generating jobs, investment and growth in communities. With the tourist arrivals and tourism expenditure growing on a yearly basis, a large number of regions in Australia are benefitted as they rely significantly on tourism as their economic base. 
+Tourism remains an industry vital to the global economy, evidenced by the incredible growth in both number of tourists and the money they spend while on tour. France, Spain and the U.S. have been and still are the most popular tourist destinations. Tourists themselves spend the most money in Australia at over 5000 USD per person.
 
-(Yuheng) The relationship between crime and tourism does exist. However, country and visitor arrival are the dominant explanatory variables in two models, respectively. We may deduce that holding crime rate and year constant, some countries could attract more tourists than other countries. This is logical because some countries have more landmarks than other countries. In additional, due to the high $R^2$ values, two linear models may be used for predicting visitor arrival and visitor spending in the future.
+Tourism provides a source of income to the economy of Australia and is a major employer of Australians as it helps in generating jobs, investment and growth in communities. With the tourist arrivals and tourism expenditure growing on a yearly basis, a large number of regions in Australia are benefitted as they rely significantly on tourism as their economic base. 
+
+The relationship between crime and tourism does exist. However, country and visitor arrival are the dominant explanatory variables in two models, respectively. We may deduce that holding crime rate and year constant, some countries could attract more tourists than other countries. This is logical because some countries have more landmarks than other countries. In additional, due to the high $R^2$ values, two linear models may be used for predicting visitor arrival and visitor spending in the future.
 
 
-
+\clearpage
 # Acknowledgments
 The packages used to produce this report are: 
 
 ggplot2 [@ggplot2], broom [@broom], naniar [@naniar], readxl[@readxl], ggthemes[@ggthemes], knitr [@knitr], kableExtra [@kableExtra], tidyverse [@tidyverse], janitor [@janitor], readr [@readr], lubridate [@lubridate], base [@base], graphics [@graphics], dplyr [@dplyr], here [@here], png [@png].
 
 We use renv [@renv] to ensure the report is reproducible.
-
+\clearpage
 # References
