@@ -55,14 +55,6 @@ However, when we as tourists think about visiting places one of the criteria, we
 
 In this project, we look at the influence of crime rates to the tourism industries throughout the world and in particular Australia, and other criteria which affect them.
 
-\clearpage
-
-# Methodology
-
-\clearpage
-
-# Data
-
 ```{r read-data}
 # clean the data set
 crime <- read_csv(here::here("Data", "SYB62_328_201904_Intentional Homicides and Other Crimes.csv")) %>%
