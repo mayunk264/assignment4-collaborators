@@ -45,6 +45,8 @@ library(graphics)
 library(dplyr)
 library(here)
 library(png)
+library(readxl)
+library(ggthemes)
 ```
 
 # Intro
@@ -144,25 +146,17 @@ Research question within this section:
 
 \clearpage
 
-# Crime Offence in Australia - edited by Yawen Zhang
-**The following section was compiled and edited by Yawen Zhang**
+# Crime Trends in Australia
+**The following section was compiled and edited by Yawen Zhang.**
 
-```{r packages in this section}
-library(readxl)
-library(ggthemes)
-library(here)
-```
-
-In this section, we will focus our analysis and explore crime trends within Australia by attempting to explore the crime results in each state and gender trend for crime offence in Australia. Regarding the Australia Bureau of Statistics (ABS) data sources, the following data sets are used to  analysis this section which is <https://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/4519.02018-19?OpenDocument>,  <https://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/4519.02016-17?OpenDocument>.
+In this section, we will focus our analysis on crime trends within Australia by attempting to explore the crime results in each state as well as the gender trend for crime offence in Australia. To do this, we will use the '4519.0 - Recorded Crime - Offenders' datasets from the @AB01 which can be found for the years 2016-17 [here](https://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/4519.02018-19?OpenDocument) and the years 2018-19 [here](https://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/4519.02018-19?OpenDocument). These datasets were combined and modified in Excel prior to being read in. Per the @AB02, its data is supplied with Creative Commons Attribution 4.0 International licensing and is therefore free to be re-used in this analysis.
 
 ```{r readdata, include = FALSE}
 crime_states <- read_csv(here("Data/Book1 offenders, states and territories .csv"))
 crime_sex <- read_excel(here("Data/1. offenders, australia.xlsx"))
 ```
 
-## Offence in Australia Each State
-
-From the year 2016, National Statistics suggest that the most frequently detected offence-types were drug offences, acts intended to cause injury, theft and public order offences in table \@ref(tab:crimetype). As a result, we will study the performance of each state of these four popular offences, as well as the trend for each year. 
+From the year 2016 onwards, the data suggest that the most frequently detected offence-types were drug offences, acts intended to cause injury, theft and public order offences as can be seen in Table \@ref(tab:crimetype). As a result, we will study the performance of each state in these four popular offences, as well as the trend for each year. 
 
 ```{r crimetype}
 crime_type <- crime_states %>%
@@ -172,7 +166,8 @@ crime_type <- crime_states %>%
 crime_type %>%
   head() %>%
   kable(booktabs = TRUE, caption = "Four Offence-types in Each State") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"))
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                latex_options = "hold_position")
 ```
 
 
@@ -186,9 +181,9 @@ crime_type %>%
   facet_wrap(~ States, ncol = 3)
 ```
 
-From figure \@ref(fig:statesoffence), VIC, ACT and WA are three safer states in Australia, all these four offence-types are below 500 offenders per 100,000 persons from 2016 to 2019. Illicit drug offences are relatively higher in SA compare with other states over four years. The offender rate of theft in SA and NSW have a significant decrease from 500 to 250 offenders per 100,000 persons over the same period. Northern Territory has the highest crime rate over the eight states, especially for public order offences. The maximum amount of public order offences was 2500 offenders per 100,000 persons and decreased to 1750 offenders per 100,000 persons in 2018. Despite this decrease, public order offences remained the most common principal offence. 
+Per Figure \@ref(fig:statesoffence), VIC, ACT and WA are three three safer states in Australia as all these four offence-types are below 500 offenders per 100,000 persons from 2016 to 2019. Illicit drug offences are relatively higher in SA compared with the other states over four years. The offender rate of theft in SA and NSW sees a significant decrease from 500 to 250 offenders per 100,000 persons over the same period. The Northern Territory has the highest crime rate over the eight states, especially for public order offences. The maximum amount of public order offences was 2500 offenders per 100,000 persons and decreased to 1750 offenders per 100,000 persons in 2018. Despite this decrease, public order offences remained the most common principal offence. 
 
-## Australian Offence by Gender
+
 ```{r crime-by-gender}
 crime_gender <- crime_sex %>%
   rename(Offence = `Principal offence`, "2009" = `2008–09`, "2010" = `2009–10`, "2011" = `2010–11`, "2012" = `2011–12`, "2013" = `2012–13`, "2014" = `2013–14`, "2015" = `2014–15`, "2016" = `2015–16`, "2017" = `2016–17`, "2018" = `2017–18`, "2019" = `2018–19`) %>%
@@ -205,10 +200,9 @@ crime_gender %>%
 ```
 
 
-To explore the crime rate of men and women in Australia, ABS provided a dataset which includes 15 types of offences from 2009 to 2019. Figure \@ref(fig:offender-by-gender) shows that the male offender rate was two to four times higher than the female offender rate, but they have similar trends over the year. Acts intended to cause injury was the most common principal offence for male offenders with 600 male offenders per 100,000 males. Illicit drug offences were the most common principal offence for female offenders with 200 female offenders per 100,000 females. It is necessary mentioning that, both male and female in theft offences shown a downward trend from 2013 until now. In contrast, illicit drug offences provide an increasing trend of male and female from the year 2015. 
+Figure \@ref(fig:offender-by-gender) shows that the male offender rate was two to four times higher than the female offender rate, but they have similar trends over the year. Acts intended to cause injury was the most common principal offence for male offenders with 600 male offenders per 100,000 males. Illicit drug offences were the most common principal offence for female offenders with 200 female offenders per 100,000 females. It is necessary mentioning that, both males and females in theft offences shown a downward trend from 2013 until now. In contrast, illicit drug offences provide an increasing trend by both males and females from the year 2015. 
 
-
-As can be seen from the above two figures: figure \@ref(fig:statesoffence) and figure \@ref(fig:offender-by-gender), the crime rates of different states in Australia are different, and at the same time, the crime rate of male is extremely higher than male. 
+In conclusion, as can be seen from the two figures: Figure \@ref(fig:statesoffence) and Figure \@ref(fig:offender-by-gender), the crime rates of different states in Australia are different, and at the same time, the crime rate of males is higher than that of females. 
 
 
 \clearpage
